@@ -2,10 +2,9 @@ import GamePage from "./pages/Game/Game";
 
 function App() {
   return (
-    <>
-      <h1>STQS</h1>
+    <div className="relative z-0">
       <GamePage />
-    </>
+    </div >
   );
 }
 

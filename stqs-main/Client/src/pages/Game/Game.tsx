@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import AgentStats from './AgentStats';
+import ShipsData from './ShipsData';
 
 function Game() {
   const [message, setMessage] = useState('');
@@ -19,8 +21,16 @@ function Game() {
 
   return (
     <div>
-      <h2>Agent Info</h2>
-      <div>{message ? JSON.stringify(message) : 'Loading...'}</div>
+      {/* Agent Status Board */}
+      <AgentStats />
+
+      {/* Ships Data */}
+      <div className='mt-28'>
+        Your Ships
+        <ShipsData />
+      </div>
+
+      {/* <div>{message ? JSON.stringify(message) : 'Loading...'}</div> */}
     </div>
   );
 };
