@@ -1,4 +1,3 @@
-import './styles/App.css'
 import GamePage from "./pages/Game/Game";
 
 function App() {

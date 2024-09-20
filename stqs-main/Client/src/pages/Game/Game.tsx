@@ -4,6 +4,7 @@ import axios from 'axios';
 function Game() {
   const [message, setMessage] = useState('');
 
+  // Fetch agent data when page rendered
   useEffect(() => {
     const fetchData = async () => {
       try {
