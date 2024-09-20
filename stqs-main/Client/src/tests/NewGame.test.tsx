@@ -1,10 +1,10 @@
 import { it, expect } from "vitest";
 import { render, screen } from "@testing-library/react";
-import NewGame from "./NewGame";
+import LandingPage from "../pages/Landing/Landing";
 
 it("renders", async () => {
     // Arrange
-    render(<NewGame />)
+    render(<LandingPage />)
 
     // Act
     await screen.findByRole("heading");

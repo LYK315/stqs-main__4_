@@ -1,11 +1,11 @@
-import "./App.css";
-import NewGame from "./NewGame";
+import './styles/App.css'
+import LandingPage from "./pages/Landing/Landing";
 
 function App() {
   return (
     <>
       <h1>STQS</h1>
-      <NewGame />
+      <LandingPage />
     </>
   );
 }

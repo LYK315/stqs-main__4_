@@ -5,13 +5,13 @@ import { useState } from "react"
  * which you will need to use in subsequent calls. Therefore, you might want to refactor or replace this as you move forward.
  */
 
-function NewGame() {
+function landingPage() {
   const [token, setToken] = useState();
   const [resp, setResp] = useState("");
   const [form, setForm] = useState({ symbol: "", faction: "COSMIC" });
 
   return (<>
-    <h1>New Game</h1>
+    <h1>Conquer The Space</h1>
     <input name="symbol" value={form.symbol} onChange={(e) => setForm({ ...form, symbol: e.currentTarget.value })} />
     <input name="faction" value={form.faction} onChange={(e) => setForm({ ...form, faction: e.currentTarget.value })} />
     <input type="submit" onClick={async () => {
@@ -39,4 +39,4 @@ function NewGame() {
   </>)
 }
 
-export default NewGame
+export default landingPage
