@@ -1,9 +1,4 @@
-import { useState } from "react"
-
-/**
- * This component is a basic MVP of part one of the quickstart. It handles registering your agent and receives a token
- * which you will need to use in subsequent calls. Therefore, you might want to refactor or replace this as you move forward.
- */
+import { useState } from "react";
 
 function landingPage() {
   const [token, setToken] = useState();

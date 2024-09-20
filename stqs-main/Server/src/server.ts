@@ -1,0 +1,28 @@
+import express, { Router, Request, Response } from 'express';
+import cors from 'cors';
+import dotenv from 'dotenv';
+import agentRoutes from './routes/agent';
+
+dotenv.config();
+
+const app = express();
+const PORT = process.env.PORT;
+const router = Router();
+
+app.use(cors());
+app.use(express.json());
+
+
+/*===================== Standard Trader =====================*/
+app.use('/api/agent', agentRoutes); // Agent Routes
+
+
+
+/*===================== Server =====================*/
+app.get('/', (req: Request, res: Response) => {
+  res.send('Welcome to the backend server!');
+});
+
+app.listen(PORT, () => {
+  console.log(`Server is running on http://localhost:${PORT}`);
+});
