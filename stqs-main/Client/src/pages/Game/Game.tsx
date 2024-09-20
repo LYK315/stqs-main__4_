@@ -1,36 +1,25 @@
-import { useEffect, useState } from 'react';
-import axios from 'axios';
 import AgentStats from './AgentStats';
 import ShipsData from './ShipsData';
+import BtnNavigate from '../../components/BtnNavigate';
 
 function Game() {
-  const [message, setMessage] = useState('');
-
   // Fetch agent data when page rendered
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get('http://localhost:8080/api/agent/get');
-        setMessage(response.data);
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      }
-    };
-    fetchData();
-  }, []);
 
   return (
     <div>
-      {/* Agent Status Board */}
+      {/* Dashboard - Agent Status */}
       <AgentStats />
 
-      {/* Ships Data */}
+      {/* Dashboard - Ships Data */}
       <div className='mt-28'>
         Your Ships
         <ShipsData />
       </div>
 
-      {/* <div>{message ? JSON.stringify(message) : 'Loading...'}</div> */}
+      {/* Button - Create New Agent */}
+      <div className='absolute bottom-2 left-2 max-w-fit max-h-fit'>
+        <BtnNavigate route='new-agent' label='Create New Agent'/>
+      </div>
     </div>
   );
 };

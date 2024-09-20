@@ -15,7 +15,7 @@ function AgentStats() {
 
   // Get Agent Data
   useEffect(() => {
-    const fetchData = async () => {
+    async function fetchData() {
       try {
         const response = await axios.get('http://localhost:8080/api/agent/get');
         setAgentData(response.data.data);
@@ -33,7 +33,7 @@ function AgentStats() {
   };
 
   return (
-    <div className='bg-[#262144] w-fit p-3 mt-5 ml-3 border rounded-md'>
+    <div className='bg-dashboard w-fit p-3 mt-5 ml-3 border rounded-md'>
       <table className="table-fixed">
         <thead>
           <tr className='text-[12px]'>
