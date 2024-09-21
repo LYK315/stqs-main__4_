@@ -10,6 +10,7 @@ function NewAgent() {
   async function handleCreateAgent() {
     try {
       const response = await axios.post('http://localhost:8080/api/agent/register', { symbol: form.symbol, faction: form.faction });
+      
       setApiKey(response.data.token);
     } catch (error) {
       console.error('Error fetching data:', error);

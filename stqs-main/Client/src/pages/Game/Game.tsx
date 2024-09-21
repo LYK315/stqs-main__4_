@@ -1,5 +1,6 @@
 import AgentStats from './AgentStats';
 import ShipsData from './ShipsData';
+import Commands from './Commands';
 import BtnNavigate from '../../components/BtnNavigate';
 
 function Game() {
@@ -7,18 +8,27 @@ function Game() {
 
   return (
     <div>
-      {/* Dashboard - Agent Status */}
-      <AgentStats />
+      <div className='flex flex-row w-screen h-screen'>
+        <div className='flex flex-col gap-5 basis-5/12'>
+          {/* Dashboard - Agent Status */}
+          <AgentStats />
 
-      {/* Dashboard - Ships Data */}
-      <div className='mt-28'>
-        Your Ships
-        <ShipsData />
-      </div>
+          {/* Feature - Ships Data */}
+          <div>
+            Your Ships
+            {/* <ShipsData /> */}
+          </div>
+        </div>
 
-      {/* Button - Create New Agent */}
-      <div className='absolute bottom-2 left-2 max-w-fit max-h-fit'>
-        <BtnNavigate route='new-agent' label='Create New Agent'/>
+        {/* Feature - System Commmands */}
+        <div className="flex items-center justify-center basis-7/12">
+          <Commands />
+        </div>
+
+        {/* Button - Create New Agent */}
+        <div className='absolute bottom-2 left-2 max-w-fit max-h-fit'>
+          <BtnNavigate route='new-agent' label='Create New Agent' />
+        </div>
       </div>
     </div>
   );

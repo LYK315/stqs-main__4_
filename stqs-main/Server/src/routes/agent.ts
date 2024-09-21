@@ -3,18 +3,23 @@ import { Router, Request, Response } from 'express';
 const router = Router();
 const API_URL = 'https://api.spacetraders.io/v2';
 
-/*===================== Promise =====================*/
+/*===================== Promises =====================*/
 interface Agent {
   accountId: string;
   symbol: string;
   headquarters: string;
   credits: number;
   startingFaction: string;
-}
+};
+
+interface NewAgent {
+  data: {
+    token: string;
+  }
+};
 
 
-/*===================== Controller =====================*/
-// Get Agent Data
+/*===================== Controllers =====================*/
 async function getAgentData(): Promise<Agent> {
   const options = {
     method: 'GET',
@@ -34,10 +39,9 @@ async function getAgentData(): Promise<Agent> {
     console.error('Error fetching agent data:', error);
     throw error;
   }
-}
+};
 
-// Register New Agent
-async function registerAgent(symbol: string, faction: string) {
+async function registerAgent(symbol: string, faction: string): Promise<NewAgent> {
   const options = {
     method: 'POST',
     headers: {
@@ -54,16 +58,15 @@ async function registerAgent(symbol: string, faction: string) {
     if (!response.ok) {
       throw new Error(`Failed to register agent. Status: ${response.status}`)
     }
-    return await response.json()
+    return await response.json() as NewAgent;
   } catch (error) {
     console.error('Error registering new agent:', error);
     throw error;
   }
-}
+};
 
 
 /*===================== Services =====================*/
-// Get Agent Data
 router.get('/get', async (req: Request, res: Response) => {
   try {
     const agentData = await getAgentData();
@@ -73,7 +76,6 @@ router.get('/get', async (req: Request, res: Response) => {
   }
 });
 
-// Register New Agent
 router.post('/register', async (req: Request, res: Response) => {
   try {
     const { symbol, faction } = req.body;
@@ -84,7 +86,7 @@ router.post('/register', async (req: Request, res: Response) => {
 
     const newAgentData = await registerAgent(symbol, faction);
     const token = newAgentData.data.token;
-
+    
     // Return only token
     res.json({ token });
   } catch (error) {
