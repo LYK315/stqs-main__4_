@@ -9,14 +9,21 @@ function Game() {
   return (
     <div>
       <div className='flex flex-row w-screen h-screen'>
-        <div className='flex flex-col gap-5 basis-5/12'>
+        <div className='flex flex-col gap-5 mt-3 ml-3'>
           {/* Dashboard - Agent Status */}
-          <AgentStats />
+          <div className='text-center'>
+            Agent
+            <div className='bg-dashboard w-fit p-3 border rounded-md'>
+              <AgentStats />
+            </div>
+          </div>
 
           {/* Feature - Ships Data */}
-          <div>
-            Your Ships
-            {/* <ShipsData /> */}
+          <div className='text-center'>
+            Ships
+            <div className='bg-dashboard w-fit p-3 border rounded-md'>
+              <ShipsData />
+            </div>
           </div>
         </div>
 
@@ -26,7 +33,7 @@ function Game() {
         </div>
 
         {/* Button - Create New Agent */}
-        <div className='absolute bottom-2 left-2 max-w-fit max-h-fit'>
+        <div className='absolute bottom-3 right-3 max-w-fit max-h-fit'>
           <BtnNavigate route='new-agent' label='Create New Agent' />
         </div>
       </div>

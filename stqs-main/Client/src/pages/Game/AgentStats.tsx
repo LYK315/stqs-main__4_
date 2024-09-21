@@ -33,28 +33,26 @@ function AgentStats() {
   };
 
   return (
-    <div className='bg-dashboard w-fit p-3 mt-5 ml-3 border rounded-md'>
-      <table className="table-fixed">
-        <thead>
-          <tr className='text-[12px]'>
-            <th className='w-[5em] font-light text-left'>AGENT</th>
-            <th className='w-[6em] font-light text-left'>FACTION</th>
-            <th className='w-[8em] font-light text-left'>HEADQUARTERS</th>
-            <th className='w-[5em] font-light text-right'>SHIPS</th>
-            <th className='w-[7.5em] font-light text-right'>CREDITS</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr className='text-xs font-bold'>
-            <td className='w-[5em] text-left'>{agentData ? agentData.symbol : "ldng.."}</td>
-            <td className='w-[6em] text-left'>{agentData ? agentData.startingFaction : "ldng.."}</td>
-            <td className='w-[8em] text-left'>{agentData ? agentData.headquarters : "ldng.."}</td>
-            <td className='w-[5em] text-right'>{agentData ? formatNumber(agentData.shipCount) : "ldng.."}</td>
-            <td className='w-[7.5em] text-right'>$ {agentData ? formatNumber(agentData.credits) : "ldng.."}</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+      <div className="table w-[23rem] px-2 text-[10px]">
+        <div className="table-header-group">
+          <div className='table-row font-light'>
+            <div className='table-cell w-[5em] text-left'>AGENT</div>
+            <div className='table-cell w-[6em] text-left'>FACTION</div>
+            <div className='table-cell w-[8em] text-left'>HEADQUARTERS</div>
+            <div className='table-cell w-[5em] text-right'>SHIPS</div>
+            <div className='table-cell w-[7.5em] text-right'>CREDITS</div>
+          </div>
+        </div>
+        <div className="table-row-group">
+          <div className='table-row font-bold'>
+            <div className='table-cell w-[5em] text-left'>{agentData ? agentData.symbol : "ldng.."}</div>
+            <div className='table-cell w-[6em] text-left'>{agentData ? agentData.startingFaction : "ldng.."}</div>
+            <div className='table-cell w-[8em] text-left'>{agentData ? agentData.headquarters : "ldng.."}</div>
+            <div className='table-cell w-[5em] text-right'>{agentData ? formatNumber(agentData.shipCount) : "ldng.."}</div>
+            <div className='table-cell w-[7.5em] text-right'>$ {agentData ? formatNumber(agentData.credits) : "ldng.."}</div>
+          </div>
+        </div>
+      </div>
   )
 }
 
