@@ -1,110 +1,8 @@
 import { Router, Request, Response } from 'express';
+import { ShipList, MoveShipData, ExtractOreData, RefuelData } from '../../../Shared/Types/ship';
 
 const router = Router();
-const API_URL = 'https://api.spacetraders.io/v2';
-
-/*===================== Promises =====================*/
-interface ShipList {
-  data: ShipData[];
-}
-
-interface ShipData {
-  registration: Registration;
-  nav: Navigation;
-  crew: Crew;
-  frame: Frame;
-  cooldown: Cooldown;
-  cargo: Cargo;
-  fuel: Fuel;
-}
-
-interface Registration {
-  name: string;
-  factionSymbol: string;
-  role: string;
-}
-
-interface Navigation {
-  systemSymbol: string;
-  waypointSymbol: string;
-  route: Route;
-  status: string;
-  flightMode: string;
-}
-
-interface Route {
-  destination: Location;
-  origin: Location;
-  departureTime: string;
-  arrival: string;
-}
-
-interface Location {
-  symbol: string;
-  type: string; // e.g., "PLANET"
-  systemSymbol: string;
-  x: number;
-  y: number;
-}
-
-interface Crew {
-  current: number;
-  required: number;
-  capacity: number;
-  rotation: string;
-  morale: number;
-  wages: number;
-}
-
-interface Frame {
-  symbol: string;
-  name: string;
-  description: string;
-  condition: number;
-  integrity: number;
-  moduleSlots: number;
-  mountingPoints: number;
-  fuelCapacity: number;
-  requirements: FrameRequirements;
-}
-
-interface FrameRequirements {
-  power: number;
-  crew: number;
-  slots: number;
-}
-
-interface Cooldown {
-  shipSymbol: string;
-  totalSeconds: number;
-  remainingSeconds: number;
-  expiration: string;
-}
-
-interface Cargo {
-  capacity: number;
-  units: number;
-  inventory: InventoryItem[];
-}
-
-interface InventoryItem {
-  symbol: string;
-  name: string;
-  description: string;
-  units: number;
-}
-
-interface Fuel {
-  current: number;
-  capacity: number;
-  consumed: FuelConsumption;
-}
-
-interface FuelConsumption {
-  amount: number;
-  timestamp: string;
-}
-
+const API_URL = 'https://api.spacetraders.io/v2/my/ships';
 
 
 /*===================== Controllers =====================*/
@@ -118,7 +16,7 @@ async function getShipList(): Promise<ShipList[]> {
   };
 
   try {
-    const response = await fetch(`${API_URL}/my/ships`, options);
+    const response = await fetch(`${API_URL}`, options);
     if (!response.ok) {
       throw new Error(`Failed to fetch data. Status: ${response.status}`);
     }
@@ -129,14 +27,181 @@ async function getShipList(): Promise<ShipList[]> {
   }
 }
 
+// Orbit or Dock ship
+async function moveShip(shipSymbol: string, move: string): Promise<MoveShipData> {
+  const options = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${process.env.VITE_ST_API_KEY}`
+    },
+  };
+
+  try {
+    const response = await fetch(`${API_URL}/${shipSymbol}/${move}`, options);
+    if (!response.ok) {
+      throw new Error(`Failed to orbit / dock ship. Status: ${response.status}`)
+    }
+    return await response.json() as MoveShipData;
+  } catch (error) {
+    console.error('Error orbit / dock ship:', error);
+    throw error;
+  }
+};
+
+async function refuelShip(shipSymbol: string): Promise<RefuelData> {
+  const options = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${process.env.VITE_ST_API_KEY}`
+    },
+  };
+
+  try {
+    const response = await fetch(`${API_URL}/${shipSymbol}/refuel`, options);
+    if (!response.ok) {
+      throw new Error(`Failed to refuel ship. Status: ${response.status}`)
+    }
+    return await response.json() as RefuelData;
+  } catch (error) {
+    console.error('Error refuel ship:', error);
+    throw error;
+  }
+};
+
+async function extractOre(shipSymbol: string): Promise<ExtractOreData> {
+  const options = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${process.env.VITE_ST_API_KEY}`
+    },
+  };
+
+  try {
+    const response = await fetch(`${API_URL}/${shipSymbol}/extract`, options);
+    if (!response.ok) {
+      throw new Error(`Failed to extract ore. Status: ${response.status}`)
+    }
+    return await response.json() as ExtractOreData;
+  } catch (error) {
+    console.error('Error extract ore:', error);
+    throw error;
+  }
+};
+
+async function navigateShip(shipSymbol: string, destSymbol: string): Promise<MoveShipData> {
+  const options = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${process.env.VITE_ST_API_KEY}`
+    },
+    body: JSON.stringify({
+      waypointSymbol: destSymbol,
+    }),
+  };
+
+  try {
+    const response = await fetch(`${API_URL}/${shipSymbol}/navigate`, options);
+    if (!response.ok) {
+      throw new Error(`Failed to navigate ship. Status: ${response.status}`)
+    }
+    return await response.json() as MoveShipData;
+  } catch (error) {
+    console.error('Error extract ore:', error);
+    throw error;
+  }
+};
+
+
 
 /*===================== Services =====================*/
 router.get('/shipList', async (req: Request, res: Response) => {
   try {
     const shipList = await getShipList();
-    console.log(shipList);
-    
     res.json(shipList);
+  } catch (error) {
+    res.status(500).json({ error: error });
+  }
+});
+
+router.post('/orbit', async (req: Request, res: Response) => {
+  try {
+    const { shipSymbol } = req.body;
+
+    if (!shipSymbol) {
+      return res.status(400).json({ error: 'Ship Symbol (orbit) is required' });
+    }
+
+    const orbitData = await moveShip(shipSymbol, 'orbit');
+    res.json({ orbitData });
+
+  } catch (error) {
+    res.status(500).json({ error: error });
+  }
+});
+
+router.post('/dock', async (req: Request, res: Response) => {
+  try {
+    const { shipSymbol } = req.body;
+
+    if (!shipSymbol) {
+      return res.status(400).json({ error: 'Ship Symbol (dock) is required' });
+    }
+
+    const orbitData = await moveShip(shipSymbol, 'dock');
+    res.json({ orbitData });
+
+  } catch (error) {
+    res.status(500).json({ error: error });
+  }
+});
+
+router.post('/refuel', async (req: Request, res: Response) => {
+  try {
+    const { shipSymbol } = req.body;
+
+    if (!shipSymbol) {
+      return res.status(400).json({ error: 'Ship Symbol (refuel) is required' });
+    }
+
+    const orbitData = await refuelShip(shipSymbol);
+    res.json({ orbitData });
+
+  } catch (error) {
+    res.status(500).json({ error: error });
+  }
+});
+
+router.post('/extract', async (req: Request, res: Response) => {
+  try {
+    const { shipSymbol } = req.body;
+
+    if (!shipSymbol) {
+      return res.status(400).json({ error: 'Ship Symbol (extract) is required' });
+    }
+
+    const orbitData = await extractOre(shipSymbol);
+    res.json({ orbitData });
+
+  } catch (error) {
+    res.status(500).json({ error: error });
+  }
+});
+
+router.post('/navigate', async (req: Request, res: Response) => {
+  try {
+    const { shipSymbol, destWaypointSymbol } = req.body;
+
+    if (!shipSymbol || !destWaypointSymbol) {
+      return res.status(400).json({ error: 'Ship Symbol & Destination Waypoint Symbol is required' });
+    }
+
+    const navigateData = await navigateShip(shipSymbol, destWaypointSymbol);
+    res.json({ navigateData });
+
   } catch (error) {
     res.status(500).json({ error: error });
   }

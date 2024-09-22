@@ -1,108 +1,50 @@
 import { useEffect, useState } from "react"
 import axios from "axios";
+import { ShipList, ShipData } from "../../../../Shared/Types/ship";
+import ShipManage from "./ShipManage";
 
-interface ShipList {
-  data: ShipData[];
+interface Props {
+  updateData: boolean;
+  setUpdateData: (value: boolean) => void;
 }
 
-interface ShipData {
-  registration: Registration;
-  nav: Navigation;
-  cooldown: Cooldown;
-  cargo: Cargo;
-  fuel: Fuel;
-}
-
-interface Registration {
-  name: string;
-  factionSymbol: string;
-  role: string;
-}
-
-interface Navigation {
-  systemSymbol: string;
-  waypointSymbol: string;
-  route: Route;
-  status: string;
-  flightMode: string;
-}
-
-interface Route {
-  destination: Location;
-  origin: Location;
-  departureTime: string;
-  arrival: string;
-}
-
-interface Location {
-  symbol: string;
-  type: string; // e.g., "PLANET"
-  systemSymbol: string;
-  x: number;
-  y: number;
-}
-
-interface Cooldown {
-  shipSymbol: string;
-  totalSeconds: number;
-  remainingSeconds: number;
-  expiration: string;
-}
-
-interface Cargo {
-  capacity: number;
-  units: number;
-  inventory: InventoryItem[];
-}
-
-interface InventoryItem {
-  symbol: string;
-  name: string;
-  description: string;
-  units: number;
-}
-
-interface Fuel {
-  current: number;
-  capacity: number;
-  consumed: FuelConsumption;
-}
-
-interface FuelConsumption {
-  amount: number;
-  timestamp: string;
-}
-
-function ShipsData() {
+function ShipsData({ updateData, setUpdateData }: Props) {
   const [shipList, setShipList] = useState<ShipList>({ data: [] });
+  const [selectedShip, setSelectedShip] = useState<ShipData | null>(null);
 
+  // Execute everytime when 'updateData' is updated
   useEffect(() => {
+    //API Call - Get all ships data
     async function fetchShipList() {
       try {
         const response = await axios.get('http://localhost:8080/api/ship/shipList');
-        console.log(response.data.data);
         setShipList({ data: response.data.data });
       } catch (error) {
         console.error('Error fetching data:', error);
       }
     };
     fetchShipList();
-  }, []);
+  }, [updateData]);
 
-  const handleManageClick = (ship: ShipData) => {
-    console.log('Clicked ship data:', ship);
-    // Perform any other action with the clicked ship data
+  // Button - open manage ship
+  function handleManageOpen(ship: ShipData) {
+    setSelectedShip(ship);
+  };
+
+  // Button - close manage ship
+  function handleManageClose() {
+    setSelectedShip(null);
   };
 
   return (
-    <div className="flex flex-col gap-3">
+    <div className="flex flex-col gap-3 max-h-[13rem] overflow-y-auto">
       {/* Loop display all ships */}
       {shipList.data.length > 0 ? shipList.data.map((ship, index) => (
-        <div className="flex flex-col">
-          <div
-            key={ship.registration.name}
-            className="flex flex-row gap-5 w-[23rem] px-2 text-[10px] text-left"
-          >
+        <div
+          key={ship.registration.name}
+          className="flex flex-col"
+        >
+          <div className="flex flex-row gap-5 w-[25rem] px-2 text-[12px] text-left">
             {/* Data - Name(symbol) & Role */}
             <div className="flex flex-col basis-3/12">
               <div className="font-bold">{ship.registration.name}</div>
@@ -125,7 +67,7 @@ function ShipsData() {
             <div
               role="button"
               className="basis-2/12 flex items-center bg-tertiary rounded-xl px-3 hover:text-cyan-300"
-              onClick={() => handleManageClick(ship)}
+              onClick={() => handleManageOpen(ship)}
             >
               Manage
             </div>
@@ -137,6 +79,15 @@ function ShipsData() {
           )}
         </div>
       )) : "Loading..."}
+
+      {/* Feature - Manage Ship */}
+      {selectedShip && (
+        <div className="fixed z-10 inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+          <div className="bg-dashboard p-4 px-5 rounded-md w-[29rem] h-fit shadow-md shadow-cyan-900 border border-cyan-800">
+            <ShipManage ship={selectedShip} updateData={updateData} setUpdateData={setUpdateData} onClose={handleManageClose} />
+          </div>
+        </div>
+      )}
     </div>
   )
 }

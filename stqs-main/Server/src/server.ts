@@ -3,6 +3,7 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import agentRoutes from './routes/agent';
 import shipRoutes from './routes/ships';
+import systemsRoutes from './routes/systems';
 
 dotenv.config();
 
@@ -16,6 +17,7 @@ app.use(express.json());
 /*===================== Standard Trader =====================*/
 app.use('/api/agent', agentRoutes);
 app.use('/api/ship', shipRoutes);
+app.use('/api/systems', systemsRoutes);
 
 
 /*===================== Server =====================*/

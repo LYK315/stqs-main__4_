@@ -1,22 +1,8 @@
 import { Router, Request, Response } from 'express';
+import { Agent, NewAgent } from '../../../Shared/Types/agent';
 
 const router = Router();
 const API_URL = 'https://api.spacetraders.io/v2';
-
-/*===================== Promises =====================*/
-interface Agent {
-  accountId: string;
-  symbol: string;
-  headquarters: string;
-  credits: number;
-  startingFaction: string;
-};
-
-interface NewAgent {
-  data: {
-    token: string;
-  }
-};
 
 
 /*===================== Controllers =====================*/
@@ -86,7 +72,7 @@ router.post('/register', async (req: Request, res: Response) => {
 
     const newAgentData = await registerAgent(symbol, faction);
     const token = newAgentData.data.token;
-    
+
     // Return only token
     res.json({ token });
   } catch (error) {
