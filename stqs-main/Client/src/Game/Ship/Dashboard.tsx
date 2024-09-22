@@ -1,18 +1,18 @@
 import { useEffect, useState } from "react"
 import axios from "axios";
-import { ShipList, ShipData } from "../../../../Shared/Types/ship";
-import ShipManage from "./ShipManage";
+import { ShipList, ShipData } from "@shared/Types/ship";
+import ShipManage from "./Manage";
 
 interface Props {
   updateData: boolean;
   setUpdateData: (value: boolean) => void;
 }
 
-function ShipsData({ updateData, setUpdateData }: Props) {
+function ShipsDashboard({ updateData, setUpdateData }: Props) {
   const [shipList, setShipList] = useState<ShipList>({ data: [] });
   const [selectedShip, setSelectedShip] = useState<ShipData | null>(null);
 
-  // Execute everytime when 'updateData' is updated
+  // Execute on each'updateData' change
   useEffect(() => {
     //API Call - Get all ships data
     async function fetchShipList() {
@@ -20,7 +20,7 @@ function ShipsData({ updateData, setUpdateData }: Props) {
         const response = await axios.get('http://localhost:8080/api/ship/shipList');
         setShipList({ data: response.data.data });
       } catch (error) {
-        console.error('Error fetching data:', error);
+        console.error('Error fetching ships data:', error);
       }
     };
     fetchShipList();
@@ -92,4 +92,4 @@ function ShipsData({ updateData, setUpdateData }: Props) {
   )
 }
 
-export default ShipsData
+export default ShipsDashboard

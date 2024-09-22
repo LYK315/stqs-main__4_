@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import AgentStats from './AgentStats';
-import ShipsData from './ShipData';
+import AgentDashboard from './Agent/Dashboard';
+import ShipDashboard from './Ship/Dashboard';
 import Commands from './Commands';
-import BtnNavigate from '../../components/BtnNavigate';
+import BtnNavigate from '../components/BtnNavigate';
 
 function Game() {
   const [updateData, setUpdateData] = useState<boolean>(false)
@@ -16,7 +16,7 @@ function Game() {
           <div className='text-center'>
             Agent
             <div className='bg-dashboard w-fit p-3 border rounded-md'>
-              <AgentStats updateData={updateData} />
+              <AgentDashboard updateData={updateData} />
             </div>
           </div>
 
@@ -24,7 +24,7 @@ function Game() {
           <div className='text-center'>
             Ships
             <div className='bg-dashboard w-fit p-3 border rounded-md'>
-              <ShipsData updateData={updateData} setUpdateData={setUpdateData} />
+              <ShipDashboard updateData={updateData} setUpdateData={setUpdateData} />
             </div>
           </div>
         </div>

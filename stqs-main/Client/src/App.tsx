@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import GamePage from "./pages/Game/Game";
-import NewAgent from "./pages/NewAgent/NewAgent";
+import GamePage from "./Game/Game";
+import NewAgentPage from "./NewAgent/NewAgent";
 
 function App() {
   return (
@@ -8,7 +8,7 @@ function App() {
       <Router>
         <Routes>
           <Route path="/" element={<GamePage />} />
-          <Route path="/new-agent" element={<NewAgent />} />
+          <Route path="/new-agent" element={<NewAgentPage />} />
         </Routes>
       </Router>
     </div >

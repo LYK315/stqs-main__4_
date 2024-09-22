@@ -6,8 +6,13 @@
     "esModuleInterop": true,
     "skipLibCheck": true,
     "rootDir": "../",
-    "outDir": "./dist"
+    "outDir": "./dist",
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"],
+      "@shared/*": ["../Shared/*"]
+    },
   },
-  "include": ["src/**/*.ts"],
+  "include": ["src", "../Shared"],
   "exclude": ["node_modules"]
 }

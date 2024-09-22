@@ -1,6 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
-import BtnNavigate from "../../components/BtnNavigate"
+import BtnNavigate from "../components/BtnNavigate"
 
 function NewAgent() {
   const [form, setForm] = useState({ symbol: "", faction: "COSMIC" });

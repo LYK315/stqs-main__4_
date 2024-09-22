@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import Dropdown from "../../components/Dropdown";
-import { ShipData } from "../../../../Shared/Types/ship"
+import { ShipData } from "@shared/Types/ship"
 
 interface Props {
   ship: ShipData;
@@ -15,7 +15,7 @@ function ShipManage({ ship, updateData, setUpdateData, onClose }: Props) {
   const [dropDownList, setDropDownList] = useState<{ symbol: string; type: string }[]>([]);
   const [shipDocked, setShipDocked] = useState<boolean>(true);
 
-  // Execute code on each render
+  // Execute on each render
   useEffect(() => {
     // Update ship status
     setShipDocked(
@@ -38,7 +38,7 @@ function ShipManage({ ship, updateData, setUpdateData, onClose }: Props) {
         }));
         setDropDownList(options);
       } catch (error) {
-        console.error('Error fetching data:', error);
+        console.error('Error fetching waypoint list data:', error);
       }
     };
     fetchWaypointList();
@@ -81,8 +81,6 @@ function ShipManage({ ship, updateData, setUpdateData, onClose }: Props) {
       alert(`Ship "${ship.registration.name}" is in transit. Be patient mate.`)
     };
 
-    // CHECK OTHER POTENTIAL ERRORS
-
     // Call API End Point
     try {
       await axios.post('http://localhost:8080/api/ship/refuel', {
@@ -100,7 +98,10 @@ function ShipManage({ ship, updateData, setUpdateData, onClose }: Props) {
       alert(`Ship "${ship.registration.name}" is in transit. Be patient mate.`)
     };
 
-    // CHECK OTHER POTENTIAL ERRORS
+    // Error Handle - Ship not in orbit
+    if (ship.nav.status !== 'IN_ORBIT') {
+      alert(`Move ship to orbit before extracting.`)
+    };
 
     // Call API End Point
     try {

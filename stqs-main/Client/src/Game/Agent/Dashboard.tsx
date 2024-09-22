@@ -1,22 +1,23 @@
 import { useState, useEffect } from "react"
 import axios from "axios";
-import { Agent } from "../../../../Shared/Types/agent";
+import { Agent } from "@shared/Types/agent";
 
 interface Props {
   updateData: boolean;
 }
 
-function AgentStats(updateData: Props) {
+function AgentDashboard(updateData: Props) {
   const [agentData, setAgentData] = useState<Agent | null>(null);
 
-  // Fetch - agent data
+  // Execute on each "updateData" update
   useEffect(() => {
+    // Fetch - agent data
     async function fetchAgentData() {
       try {
         const response = await axios.get('http://localhost:8080/api/agent/get');
         setAgentData(response.data.data);
       } catch (error) {
-        console.error('Error fetching data:', error);
+        console.error('Error fetching  agent data:', error);
       }
     };
     fetchAgentData();
@@ -52,4 +53,4 @@ function AgentStats(updateData: Props) {
   )
 }
 
-export default AgentStats
+export default AgentDashboard

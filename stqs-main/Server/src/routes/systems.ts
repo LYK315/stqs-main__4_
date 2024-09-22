@@ -1,5 +1,5 @@
 import { Router, Request, Response } from 'express';
-import { WaypointList } from '../../../Shared/Types/system';
+import { WaypointList } from '@shared/Types/system';
 
 const router = Router();
 const API_URL = 'https://api.spacetraders.io/v2';
@@ -17,7 +17,7 @@ async function getWaypointList(systemSymbol: string): Promise<WaypointList[]> {
   try {
     const response = await fetch(`${API_URL}/systems/${systemSymbol}/waypoints`, options);
     if (!response.ok) {
-      throw new Error(`Failed to fetch data. Status: ${response.status}`);
+      throw new Error(`Failed to fetch waypoint list data. Status: ${response.status}`);
     }
     return await response.json() as WaypointList[];
   } catch (error) {

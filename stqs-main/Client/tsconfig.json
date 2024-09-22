@@ -4,6 +4,11 @@
     "lib": ["DOM", "DOM.Iterable", "ESNext"],
     "module": "ESNext",
     "skipLibCheck": true,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"],
+      "@shared/*": ["../Shared/*"]
+    },
 
     /* Bundler mode */
     "moduleResolution": "bundler",
@@ -19,6 +24,6 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["src"],
+  "include": ["src", "../Shared"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
