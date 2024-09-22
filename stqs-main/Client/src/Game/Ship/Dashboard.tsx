@@ -18,7 +18,7 @@ function ShipsDashboard({ updateData, setUpdateData }: Props) {
     async function fetchShipList() {
       try {
         const response = await axios.get('http://localhost:8080/api/ship/shipList');
-        setShipList({ data: response.data.data });
+        setShipList(response.data);
       } catch (error) {
         console.error('Error fetching ships data:', error);
       }

@@ -6,7 +6,7 @@ const API_URL = 'https://api.spacetraders.io/v2';
 
 
 /*===================== Controllers =====================*/
-async function getContractList(): Promise<ContractList> {
+async function getContractList(): Promise<ContractList[]> {
   const options = {
     method: 'GET',
     headers: {
@@ -20,7 +20,7 @@ async function getContractList(): Promise<ContractList> {
     if (!response.ok) {
       throw new Error(`Failed to fetch contract list data. Status: ${response.status}`);
     }
-    return await response.json() as ContractList;
+    return await response.json() as ContractList[];
   } catch (error) {
     console.error('Error fetching contract list data:', error);
     throw error;

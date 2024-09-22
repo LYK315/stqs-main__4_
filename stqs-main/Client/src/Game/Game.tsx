@@ -7,6 +7,7 @@ import BtnNavigate from '../components/BtnNavigate';
 function Game() {
   // Use to control refresh only certain data
   const [updateData, setUpdateData] = useState<number>(Date.now())
+  const [systemSymbol, setSystemSymbol] = useState<string | null>(null)
 
   return (
     <div>
@@ -17,7 +18,7 @@ function Game() {
           <div className='text-center'>
             Agent
             <div className='bg-dashboard w-fit p-3 border rounded-md'>
-              <AgentDashboard updateData={updateData} />
+              <AgentDashboard updateData={updateData} setSystemSymbol={setSystemSymbol} />
             </div>
           </div>
 
@@ -32,7 +33,7 @@ function Game() {
 
         {/* Feature - System Commmands */}
         <div className="flex mt-12">
-          <Commands />
+          <Commands systemSymbol={systemSymbol} />
         </div>
 
         {/* Button - Create New Agent */}

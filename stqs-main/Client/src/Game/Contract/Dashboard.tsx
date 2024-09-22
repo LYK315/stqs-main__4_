@@ -27,7 +27,7 @@ function ContractDashboard({ closeCommandDashboard }: Props) {
     async function fetchContractList() {
       try {
         const response = await axios.get(`http://localhost:8080/api/contract/getAll`);
-        setContractList({ data: response.data.data });
+        setContractList(response.data);
       } catch (error) {
         console.error('Error fetching contract list data:', error);
       }

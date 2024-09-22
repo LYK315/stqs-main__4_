@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { ContractData } from "@shared/Types/contract"
 
 interface Props {
@@ -7,10 +6,6 @@ interface Props {
 }
 
 function ContractManage({ contract, closeManageContract }: Props) {
-
-  // Execute once on render
-  useEffect(() => {
-  }, []);
 
   return (
     <div className="flex flex-col gap-3 text-md text-left py-1">

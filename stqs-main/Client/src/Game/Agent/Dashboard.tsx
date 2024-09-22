@@ -4,9 +4,10 @@ import { Agent } from "@shared/Types/agent";
 
 interface Props {
   updateData: number;
+  setSystemSymbol: (value: string | null) => void;
 }
 
-function AgentDashboard(updateData: Props) {
+function AgentDashboard({ updateData, setSystemSymbol }: Props) {
   const [agentData, setAgentData] = useState<Agent | null>(null);
 
   // Execute on each "updateData" change
@@ -15,7 +16,12 @@ function AgentDashboard(updateData: Props) {
     async function fetchAgentData() {
       try {
         const response = await axios.get('http://localhost:8080/api/agent/get');
-        setAgentData(response.data.data);
+
+        const agentData = response.data.data;
+        const systemSymbol = agentData.headquarters.match(/^[^-]+-[^-]+/)?.[0];
+
+        setAgentData(agentData);
+        setSystemSymbol(systemSymbol)
       } catch (error) {
         console.error('Error fetching agent data:', error);
       }

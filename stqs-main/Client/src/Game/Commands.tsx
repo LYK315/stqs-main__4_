@@ -3,8 +3,11 @@ import ContractDashboard from "./Contract/Dashboard";
 import MarketDashboard from "./Market/Dashboard";
 import ShipyardDashboard from "./Shipyard/Dashboard";
 
+interface Props {
+  systemSymbol: string | null;
+}
 
-function Commands() {
+function Commands(systemSymbol: Props) {
   const [manageCommand, setManageCommand] = useState<string | null>(null)
 
   // Handle - open selected command dashboard
@@ -34,24 +37,24 @@ function Commands() {
         1. Contract
       </div>
 
-      {/* Feature / Btn - Shipyards */}
+      {/* Feature / Btn - Market in current waypoint */}
       <div
         role="button"
         className="text-lg min-w-fit bg-tertiary border rounded-xl p-1 px-4 cursor-pointer hover:text-cyan-300 hover:border-cyan-300 hover:bg-blue-950 
         transition-all duration-800 hover:scale-110
         translate-x-[-5em] translate-y-[4em]"
-        onClick={() => { handleManageCommand('SHIPYARD') }}
+        onClick={() => { handleManageCommand('MARKET') }}
       >
         3. Market
       </div>
 
-      {/* Feature / Btn - Nearby Market */}
+      {/* Feature / Btn - Shipyard in current waypoint */}
       <div
         role="button"
         className="text-lg min-w-fit bg-tertiary border rounded-xl p-1 px-4 cursor-pointer hover:text-cyan-300 hover:border-cyan-300 hover:bg-blue-950 
         transition-all duration-800 hover:scale-110
         translate-x-[0em] translate-y-[4em]"
-        onClick={() => { handleManageCommand('MARKET') }}
+        onClick={() => { handleManageCommand('SHIPYARD') }}
       >
         2. Shipyard
       </div>
@@ -63,8 +66,8 @@ function Commands() {
             {(() => { // Open different command dashboard
               const commandComponents = {
                 CONTRACT: <ContractDashboard closeCommandDashboard={handleCloseCommand} />,
-                MARKET: <MarketDashboard onClose={handleCloseCommand} />,
-                SHIPYARD: <ShipyardDashboard onClose={handleCloseCommand} />,
+                MARKET: <MarketDashboard closeCommandDashboard={handleCloseCommand} systemSymbol={systemSymbol.systemSymbol} />,
+                SHIPYARD: <ShipyardDashboard closeCommandDashboard={handleCloseCommand} />,
               };
               return commandComponents[manageCommand as keyof typeof commandComponents] || null;
             })()}

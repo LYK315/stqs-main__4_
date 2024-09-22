@@ -5,7 +5,7 @@ export interface WaypointList {
 interface WaypointData {
   symbol: string; // e.g. X1-QD7-A3
   type: string; // e.g., "PLANET"
-  systemSymbol: string;
+  systemSymbol: string; // e.g., "X1-QD7"
   x: number;
   y: number;
   orbitals: Orbital[];

@@ -1,9 +1,9 @@
 
 interface Props {
-  onClose: () => void;
+  closeCommandDashboard: () => void;
 }
 
-function ShipyardDashboard({ onClose }: Props) {
+function ShipyardDashboard({ closeCommandDashboard }: Props) {
   return (
     <div className="flex flex-col gap-3 text-md text-left">
       {/* Data */}
@@ -11,7 +11,7 @@ function ShipyardDashboard({ onClose }: Props) {
         <span className="font-bold">SHIPYARD</span>
         <button
           className="w-fit h-fit hover:text-cyan-300 hover:font-bold text-[10px]"
-          onClick={onClose}
+          onClick={closeCommandDashboard}
         >
           Close
         </button>
