@@ -4,17 +4,17 @@ import { ShipList, ShipData } from "@shared/Types/ship";
 import ShipManage from "./Manage";
 
 interface Props {
-  updateData: boolean;
-  setUpdateData: (value: boolean) => void;
+  updateData: number;
+  setUpdateData: (value: number) => void;
 }
 
 function ShipsDashboard({ updateData, setUpdateData }: Props) {
   const [shipList, setShipList] = useState<ShipList>({ data: [] });
   const [selectedShip, setSelectedShip] = useState<ShipData | null>(null);
 
-  // Execute on each'updateData' change
+  // Execute on each 'updateData' change
   useEffect(() => {
-    //API Call - Get all ships data
+    // API Call - Get all ships data
     async function fetchShipList() {
       try {
         const response = await axios.get('http://localhost:8080/api/ship/shipList');
@@ -26,12 +26,12 @@ function ShipsDashboard({ updateData, setUpdateData }: Props) {
     fetchShipList();
   }, [updateData]);
 
-  // Button - open manage ship
+  // Handle - open manage ship
   function handleManageOpen(ship: ShipData) {
     setSelectedShip(ship);
   };
 
-  // Button - close manage ship
+  // Handle - close manage ship
   function handleManageClose() {
     setSelectedShip(null);
   };
@@ -84,7 +84,7 @@ function ShipsDashboard({ updateData, setUpdateData }: Props) {
       {selectedShip && (
         <div className="fixed z-10 inset-0 bg-black bg-opacity-50 flex items-center justify-center">
           <div className="bg-dashboard p-4 px-5 rounded-md w-[29rem] h-fit shadow-md shadow-cyan-900 border border-cyan-800">
-            <ShipManage ship={selectedShip} updateData={updateData} setUpdateData={setUpdateData} onClose={handleManageClose} />
+            <ShipManage ship={selectedShip} setUpdateData={setUpdateData} onClose={handleManageClose} />
           </div>
         </div>
       )}

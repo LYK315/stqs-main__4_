@@ -11,13 +11,13 @@ import contractRoutes from './routes/contracts';
 dotenv.config();
 
 const app = express();
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || 5000;
 
 app.use(cors());
 app.use(express.json());
 
 
-/*===================== Standard Trader =====================*/
+/*===================== Standard Trader API Routes =====================*/
 app.use('/api/agent', agentRoutes);
 app.use('/api/ship', shipRoutes);
 app.use('/api/systems', systemsRoutes);
@@ -26,7 +26,7 @@ app.use('/api/contract', contractRoutes);
 app.use('/api/shipyard', shipyardRoutes)
 
 
-/*===================== Server =====================*/
+/*===================== Root API Routes =====================*/
 app.get('/', (req: Request, res: Response) => {
   res.send('Welcome to the backend server!');
 });

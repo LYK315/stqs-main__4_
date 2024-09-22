@@ -5,17 +5,16 @@ import { ShipData } from "@shared/Types/ship"
 
 interface Props {
   ship: ShipData;
-  updateData: boolean;
-  setUpdateData: (value: boolean) => void;
+  setUpdateData: (value: number) => void;
   onClose: () => void;
 }
 
-function ShipManage({ ship, updateData, setUpdateData, onClose }: Props) {
+function ShipManage({ ship, setUpdateData, onClose }: Props) {
   const [selectedWaypoint, setSelectedWaypoint] = useState<string | null>(null);
   const [dropDownList, setDropDownList] = useState<{ symbol: string; type: string }[]>([]);
   const [shipDocked, setShipDocked] = useState<boolean>(true);
 
-  // Execute on each render
+  // Execute once on render
   useEffect(() => {
     // Update ship status
     setShipDocked(
@@ -24,7 +23,7 @@ function ShipManage({ ship, updateData, setUpdateData, onClose }: Props) {
           true
     );
 
-    // Fetch - All Waypoint in current system
+    // API Call - All Waypoint in current system
     // Unable to fetch data only once on page load, thr may be ships located in different systems
     async function fetchWaypointList() {
       try {
@@ -44,7 +43,7 @@ function ShipManage({ ship, updateData, setUpdateData, onClose }: Props) {
     fetchWaypointList();
   }, []);
 
-  // Button - Close Pop up window
+  // Handle - Close Pop up window
   function handleClose() {
     onClose();
   }
@@ -66,12 +65,12 @@ function ShipManage({ ship, updateData, setUpdateData, onClose }: Props) {
     // Send request to API End Point
     try {
       await axios.post(apiURL, { shipSymbol: ship.registration.name });
+
+      // Update dashboard / status board
+      setUpdateData(Date.now());
     } catch (error) {
       console.error('Error fetching data:', error);
     }
-
-    // Update dashboard / status board
-    setUpdateData(!updateData);
   }
 
   // API Call - Refuel Ship
@@ -86,6 +85,9 @@ function ShipManage({ ship, updateData, setUpdateData, onClose }: Props) {
       await axios.post('http://localhost:8080/api/ship/refuel', {
         shipSymbol: ship.registration.name
       });
+
+      // Update dashboard / status board
+      setUpdateData(Date.now());
     } catch (error) {
       console.error('Error fetching data:', error);
     }
@@ -108,6 +110,9 @@ function ShipManage({ ship, updateData, setUpdateData, onClose }: Props) {
       await axios.post('http://localhost:8080/api/ship/extract', {
         shipSymbol: ship.registration.name
       });
+
+      // Update dashboard / status board
+      setUpdateData(Date.now());
     } catch (error) {
       console.error('Error fetching data:', error);
     }
@@ -133,19 +138,20 @@ function ShipManage({ ship, updateData, setUpdateData, onClose }: Props) {
     // Call API Endpoint
     try {
       await axios.post('http://localhost:8080/api/ship/navigate', { shipSymbol: ship.registration.name, destWaypointSymbol: destSymbol });
+
+      // Update dashboard / status board
+      setUpdateData(Date.now());
     } catch (error) {
       console.error('Error fetching data:', error);
     }
-
-    // Update dashboard / status board
-    setUpdateData(!updateData);
   }
 
   return (
     <div className="flex flex-col gap-3 text-md text-left">
-      {/* Data - Ship symbol */}
+      {/* Data - Ship Symbol */}
       <div className="flex flex-row place-content-between ">
-        <span className="font-bold">{ship.registration.name} ({ship.nav.status})
+        <span className="font-bold">
+          {ship.registration.name} ({ship.nav.status})
         </span>
         <button
           className="w-fit h-fit hover:text-cyan-300 hover:font-bold text-[10px]"

@@ -5,7 +5,8 @@ import Commands from './Commands';
 import BtnNavigate from '../components/BtnNavigate';
 
 function Game() {
-  const [updateData, setUpdateData] = useState<boolean>(false)
+  // Use to control refresh only certain data
+  const [updateData, setUpdateData] = useState<number>(Date.now())
 
   return (
     <div>

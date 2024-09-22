@@ -7,12 +7,12 @@ import ShipyardDashboard from "./Shipyard/Dashboard";
 function Commands() {
   const [manageCommand, setManageCommand] = useState<string | null>(null)
 
-  // Button - open selected command dashboard
+  // Handle - open selected command dashboard
   function handleManageCommand(command: string) {
     setManageCommand(command);
   }
 
-  // Button - close command dashboard
+  // Handle - close command dashboard
   function handleCloseCommand() {
     setManageCommand(null);
   }
@@ -62,7 +62,7 @@ function Commands() {
           <div className="bg-dashboard p-4 px-5 rounded-md min-w-[29rem] w-fit h-fit shadow-md shadow-cyan-900 border border-cyan-800">
             {(() => { // Open different command dashboard
               const commandComponents = {
-                CONTRACT: <ContractDashboard onClose={handleCloseCommand} />,
+                CONTRACT: <ContractDashboard closeCommandDashboard={handleCloseCommand} />,
                 MARKET: <MarketDashboard onClose={handleCloseCommand} />,
                 SHIPYARD: <ShipyardDashboard onClose={handleCloseCommand} />,
               };

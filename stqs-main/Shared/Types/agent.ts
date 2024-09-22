@@ -4,7 +4,7 @@ export interface Agent {
   headquarters: string;
   credits: number;
   startingFaction: string;
-  shipCount: bigint;
+  shipCount: number;
 };
 
 export interface NewAgent {

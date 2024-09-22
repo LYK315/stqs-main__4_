@@ -4,7 +4,7 @@ import BtnNavigate from "../components/BtnNavigate"
 
 function NewAgent() {
   const [form, setForm] = useState({ symbol: "", faction: "COSMIC" });
-  const [apiKey, setApiKey] = useState()
+  const [apiKey, setApiKey] = useState<string>()
 
   // Register New Agent & Get API Key
   async function handleCreateAgent() {
@@ -24,7 +24,7 @@ function NewAgent() {
           {/* Title */}
           <h1 className="text-xl font-bold">Create New Agent</h1>
 
-          {/* Agent Name | Symbol */}
+          {/* Data - Agent Name | Symbol */}
           <input
             name="symbol"
             placeholder="Enter Agent Name"
@@ -33,7 +33,7 @@ function NewAgent() {
             onChange={(e) => setForm({ ...form, symbol: e.currentTarget.value })}
           />
 
-          {/* Faction */}
+          {/* Data - Faction */}
           <input
             name="faction"
             placeholder="Enter Fraction eg.COSMIC"
@@ -49,7 +49,7 @@ function NewAgent() {
             onClick={handleCreateAgent}
           />
 
-          {/* New API Key */}
+          {/* Data - New API Key */}
           <div className={`${apiKey ? "visible" : "hidden"} max-w-[63em] text-xs break-words text-pretty`}>
             New API Key : {apiKey}
           </div>

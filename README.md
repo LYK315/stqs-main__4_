@@ -20,19 +20,44 @@ Areas we will be looking to discuss include:
 - How styling is organized and applied (we don't expect you to be a designer, so don't worry about aesthetic choices)
 - How you use source code management (Git) to segment your changes
 
-We have implemented the very first part of the quickstart here to get you moving (see `NewGame.tsx`), but how you structure things (and how you present the user interface) is entirely up to you.
-
-## Requirements
-
-NodeJS 18+
-NPM
-
 ## Running
 
 `npm ci`
 `npm run dev`
 See `package.json` for more details on available scripts.
 
-## Exercise
+---
 
-Run the project (or read `./src/App.tsx`) for details of the exercise.
+# Notes - Kai
+- Folders are structured into few parts. (SERVER, CLIENT, SHARED)
+- Using function-based folder structure.
+
+```
+stqs-main
+├───Client
+│   └───src 
+│       ├───assets           (images, svg...)
+│       ├───components       (public reusable components)
+│       ├───NewAgent         (create new agent page)
+│       ├───Game             (main game page)
+│       │   ├───Game.tsx     (main feature)
+│       │   └───Commands.tsx (main feature)
+│       │   └───Agent        (sub feature)
+│       │   └───Contract     (sub feature)
+│       │   └───Market       (sub feature)
+│       │   └───Ship         (sub feature)
+│       │   └───Shipyard     (sub feature)
+├───Server
+│   └───.env
+│   └───src
+│       └───routes
+│       │   ├───agent.ts
+│       │   ├───contrac.ts
+│       │   ├───market.ts
+│       │   ├───ships.ts
+│       │   ├───shipyard.ts
+│       │   ├───systems.ts
+│       └───server.ts
+└───Shared
+    └───Types (define data types to ensure data integrity across frontend & backend)
+```
