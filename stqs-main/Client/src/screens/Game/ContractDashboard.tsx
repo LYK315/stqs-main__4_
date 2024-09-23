@@ -84,7 +84,7 @@ function ContractDashboard({ closeCommandDashboard }: contractDashboardProps) {
       {selectContract && (
         <div className="fixed z-10 inset-0 bg-black bg-opacity-50 flex items-center justify-center">
           <div className="bg-dashboard p-4 px-5 rounded-md w-[29rem] h-fit shadow-md shadow-cyan-900 border border-cyan-800">
-            <ContractManage contract={selectContract} closeManageContract={handleCloseManage} />
+            <ContractManage contract={selectContract} closeManageContract={handleCloseManage} closeCommandDashboard={closeCommandDashboard} />
           </div>
         </div>
       )}

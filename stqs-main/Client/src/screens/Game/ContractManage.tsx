@@ -1,8 +1,17 @@
 import formatThousands from "@/utils/formatThousands";
 import formatDateString from "@/utils/formatDate";
 import { contractManageProps } from "@/interfaces/contract";
+import { acceptContract } from "@/services/contractAPI";
 
-function ContractManage({ contract, closeManageContract }: contractManageProps) {
+function ContractManage({ contract, closeManageContract, closeCommandDashboard }: contractManageProps) {
+
+  // Handle - accept contract
+  function handleAcceptContract() {
+    // API Call - Send post request to accept contract
+    const contractID = contract.id;
+    acceptContract({ contractID, closeCommandDashboard });
+  }
+
   return (
     <div className="flex flex-col gap-3 text-md text-left py-1">
       {/* Data - Contract ID */}
@@ -60,7 +69,7 @@ function ContractManage({ contract, closeManageContract }: contractManageProps) 
       <button
         className={`mt-2 mx-auto border border-cyan-600 rounded-md text-md py-1 px-5 hover:text-cyan-600 w-fit ${contract.accepted ? 'text-gray-400 border-gray-400 cursor-not-allowed' : 'hover:text-cyan-600'}`}
         disabled={contract.accepted}
-        onClick={() => { closeManageContract() }}
+        onClick={() => { handleAcceptContract(), closeManageContract() }}
       >
         {contract.accepted ? "Accepted" : "Accept"}
       </button>

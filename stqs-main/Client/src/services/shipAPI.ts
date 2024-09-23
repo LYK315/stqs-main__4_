@@ -116,6 +116,7 @@ export async function navigateShip({ shipStat, shipName, destSymbol, setUpdateDa
   }
 }
 
+// Buy new ship
 export async function buyShip({ shipType, waypointSymbol, setUpdateData }: buyShipProps) {
   // Send request to API End Point
   try {

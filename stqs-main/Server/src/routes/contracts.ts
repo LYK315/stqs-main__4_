@@ -27,12 +27,43 @@ async function getContractList(): Promise<ContractList[]> {
   }
 };
 
+async function acceptContract(contractID: string) {
+  const options = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${process.env.VITE_ST_API_KEY}`
+    }
+  };
+
+  try {
+    const response = await fetch(`${API_URL}/my/contracts/${contractID}/accept`, options);
+    if (!response.ok) {
+      throw new Error(`Failed to fetch accept contract data. Status: ${response.status}`);
+    }
+    return await response.json();
+  } catch (error) {
+    console.error('Error fetching accept contract data:', error);
+    throw error;
+  }
+}
 
 /*===================== Services =====================*/
 router.get('/getAll', async (req: Request, res: Response) => {
   try {
     const contractList = await getContractList();
     res.json(contractList);
+  } catch (error) {
+    res.status(500).json({ error: error });
+  }
+});
+
+router.post('/accept', async (req: Request, res: Response) => {
+  const { contractID } = req.body
+
+  try {
+    const contractData = await acceptContract(contractID);
+    res.json(contractData);
   } catch (error) {
     res.status(500).json({ error: error });
   }
