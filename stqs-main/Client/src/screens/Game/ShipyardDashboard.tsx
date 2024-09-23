@@ -1,19 +1,15 @@
 import { useEffect, useState } from "react";
-import { WaypointList } from "@shared/Types/system";
+import { WaypointList } from "@shared/interfaces/system";
 import { getShipyardList } from "@/services/systemsAPI";
+import { shipyardDashboardProps } from "@/interfaces/systems";
 
-interface Props {
-  closeCommandDashboard: () => void;
-  systemSymbol: string | null;
-}
-
-function ShipyardDashboard({ closeCommandDashboard, systemSymbol }: Props) {
+function ShipyardDashboard({ closeCommandDashboard, systemSymbol }: shipyardDashboardProps) {
   const [shipyardList, setShipyardList] = useState<WaypointList>({ data: [] });
 
   // Execute once on render
   useEffect(() => {
     // API Call - Get all waypoints with shipyards in current system
-    getShipyardList(systemSymbol, setShipyardList);
+    getShipyardList({ systemSymbol, setShipyardList });
   }, [])
 
   return (
@@ -50,8 +46,8 @@ function ShipyardDashboard({ closeCommandDashboard, systemSymbol }: Props) {
 
         {/* Table - Body row */}
         {shipyardList.data && shipyardList.data.length > 0 ? (shipyardList.data.map((waypoint, index) => (
-          <div className="flex flex-col">
-            <div className="flex flex-row text-sm py-1 px-3" key={waypoint.symbol}>
+          <div className="flex flex-col" key={waypoint.symbol}>
+            <div className="flex flex-row text-sm py-1 px-3">
               <span className="font-thin basis-4/12">{waypoint.symbol}</span>
               <span className="font-thin basis-4/12">({waypoint.x}, {waypoint.y})</span>
               <span className="font-thin basis-4/12">{waypoint.type}</span>

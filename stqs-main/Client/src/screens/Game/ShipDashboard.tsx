@@ -1,21 +1,17 @@
 import { useEffect, useState } from "react"
-import ShipManage from "./ShipManage";
-import { ShipList, ShipData } from "@shared/Types/ship";
+import { ShipList, ShipData } from "@shared/interfaces/ship";
 import { getShipList } from "@/services/shipAPI";
+import { shipDashboardProps } from "@/interfaces/ship";
+import ShipManage from "./ShipManage";
 
-interface Props {
-  updateData: number;
-  setUpdateData: (value: number) => void;
-}
-
-function ShipsDashboard({ updateData, setUpdateData }: Props) {
+function ShipsDashboard({ updateData, setUpdateData }: shipDashboardProps) {
   const [shipList, setShipList] = useState<ShipList>({ data: [] });
   const [selectedShip, setSelectedShip] = useState<ShipData | null>(null);
 
   // Execute on each 'updateData' change
   useEffect(() => {
     // API Call - Get all ships data
-    getShipList(setShipList);
+    getShipList({ setShipList });
   }, [updateData]);
 
   // Handle - Open manage ship board

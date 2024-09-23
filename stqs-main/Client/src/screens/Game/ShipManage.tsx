@@ -1,16 +1,10 @@
 import { useEffect, useState } from "react";
-import Dropdown from "../../components/Dropdown";
-import { ShipData } from "@shared/Types/ship"
 import { getWaypointList } from "@/services/systemsAPI";
 import { extractOre, moveShip, refuelShip, navigateShip } from "@/services/shipAPI";
+import { shipManageProps } from "@/interfaces/ship";
+import Dropdown from "../../components/Dropdown";
 
-interface Props {
-  ship: ShipData;
-  setUpdateData: (value: number) => void;
-  onClose: () => void;
-}
-
-function ShipManage({ ship, setUpdateData, onClose }: Props) {
+function ShipManage({ ship, setUpdateData, onClose }: shipManageProps) {
   const [selectedWaypoint, setSelectedWaypoint] = useState<string | null>(null);
   const [dropDownList, setDropDownList] = useState<{ symbol: string; type: string }[]>([]);
   const [shipDocked, setShipDocked] = useState<boolean>(true);
@@ -26,27 +20,36 @@ function ShipManage({ ship, setUpdateData, onClose }: Props) {
 
     // API Call - Get all Waypoint in current system
     // Unable to fetch data only once on page load, thr may be ships located in different systems
-    getWaypointList(ship.nav.systemSymbol, setDropDownList);
+    const systemSymbol = ship.nav.systemSymbol
+    getWaypointList({ systemSymbol, setDropDownList });
   }, []);
 
   // API Call - Manage Ship (Orbit / Dock)
   function handleMoveShip(manage: string) {
-    moveShip(ship.nav.status, ship.registration.name, manage, setUpdateData);
+    const shipStat = ship.nav.status;
+    const shipName = ship.registration.name;
+    moveShip({ shipStat, shipName, manage, setUpdateData });
   }
 
   // API Call - Refuel Ship
   function handleRefuelShip() {
-    refuelShip(ship.nav.status, ship.registration.name, setUpdateData);
+    const shipStat = ship.nav.status;
+    const shipName = ship.registration.name;
+    refuelShip({ shipStat, shipName, setUpdateData });
   }
 
   // API Call - Extract Ore
   function handleExtractOre() {
-    extractOre(ship.nav.status, ship.registration.name, setUpdateData);
+    const shipStat = ship.nav.status;
+    const shipName = ship.registration.name;
+    extractOre({ shipStat, shipName, setUpdateData });
   }
 
   // API Call - Navigate ship to selected waypoint
   function handleNavigateShip(destSymbol: string | null) {
-    navigateShip(ship.nav.status, ship.registration.name, destSymbol, setUpdateData);
+    const shipStat = ship.nav.status;
+    const shipName = ship.registration.name;
+    navigateShip({ shipStat, shipName, destSymbol, setUpdateData });
   }
 
   return (

@@ -1,20 +1,20 @@
 import { useState } from "react";
-import axios from "axios";
+import { registerAgent } from "@/services/agentAPI";
 import BtnNavigate from "../../components/BtnNavigate"
 
 function NewAgent() {
   const [form, setForm] = useState({ symbol: "", faction: "COSMIC" });
   const [apiKey, setApiKey] = useState<string>()
 
-  // API Call - Register New Agent & Get API Key
-  async function handleCreateAgent() {
-    try {
-      const response = await axios.post('http://localhost:8080/api/agent/register', { symbol: form.symbol, faction: form.faction });
-      
-      setApiKey(response.data.token);
-    } catch (error) {
-      console.error('Error fetching data:', error);
+  // Handle - register new agent
+  function handleCreateAgent() {
+    // Error Handle - check agent name input
+    if (!form.symbol || form.symbol.length < 3) {
+      alert('Enter agent name. Must be at least 3 character.');
     }
+
+    // API Call - Register New Agent & Get API Key
+    registerAgent({ form, setApiKey });
   }
 
   return (

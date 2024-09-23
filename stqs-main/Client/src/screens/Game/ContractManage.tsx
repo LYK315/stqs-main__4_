@@ -1,14 +1,8 @@
-import { ContractData } from "@shared/Types/contract"
 import formatThousands from "@/utils/formatThousands";
 import formatDateString from "@/utils/formatDate";
+import { contractManageProps } from "@/interfaces/contract";
 
-interface Props {
-  contract: ContractData;
-  closeManageContract: () => void;
-}
-
-function ContractManage({ contract, closeManageContract }: Props) {
-
+function ContractManage({ contract, closeManageContract }: contractManageProps) {
   return (
     <div className="flex flex-col gap-3 text-md text-left py-1">
       {/* Data - Contract ID */}

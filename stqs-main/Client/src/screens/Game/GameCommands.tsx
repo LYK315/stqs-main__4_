@@ -1,13 +1,10 @@
 import { useState } from "react"
+import { commandsProps } from "@/interfaces/systems";
 import ContractDashboard from "./ContractDashboard";
 import MarketDashboard from "./MarketDashboard";
 import ShipyardDashboard from "./ShipyardDashboard";
 
-interface Props {
-  systemSymbol: string | null;
-}
-
-function Commands(systemSymbol: Props) {
+function Commands(systemSymbol: commandsProps) {
   const [manageCommand, setManageCommand] = useState<string | null>(null)
 
   // Handle - Open selected command's dashboard
@@ -15,13 +12,14 @@ function Commands(systemSymbol: Props) {
     setManageCommand(command);
   }
 
-  // Handle - Close command dashboard
+  // Handle - Close command's dashboard
   function handleCloseCommand() {
     setManageCommand(null);
   }
 
   return (
     <div className="w-[15em] h-[15em] border-2 border-cyan-600 rounded-full flex items-center justify-center">
+      {/* Title */}
       <div className="absolute font-bold text-xs">
         FEATURES
       </div>
@@ -59,7 +57,7 @@ function Commands(systemSymbol: Props) {
         2. Shipyard
       </div>
 
-      {/* Feature - Command Dashboards (Contract, Market, Shipyard) */}
+      {/* Feature - Command's Dashboards (Contract, Market, Shipyard) */}
       {manageCommand && (
         <div className="fixed z-10 inset-0 bg-black bg-opacity-50 flex items-center justify-center">
           <div className="bg-dashboard p-4 px-5 rounded-md min-w-[29rem] w-fit h-fit shadow-md shadow-cyan-900 border border-cyan-800">

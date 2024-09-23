@@ -1,12 +1,8 @@
 import axios from "axios";
-import { Agent } from "@shared/Types/agent";
-import { SetStateAction } from "react";
+import { getAgentDataProps, registerAgentProps } from "@/interfaces/agent";
 
 // Get Agent Data
-export async function getAgentData(
-  setAgentData: { (value: SetStateAction<Agent | null>): void },
-  setSystemSymbol: { (value: string | null): void }
-) {
+export async function getAgentData({ setAgentData, setSystemSymbol }: getAgentDataProps) {
   try {
     const response = await axios.get('http://localhost:8080/api/agent/get');
 
@@ -19,3 +15,14 @@ export async function getAgentData(
     console.error('Error fetching agent data:', error);
   }
 };
+
+// Register New Agent
+export async function registerAgent({ form, setApiKey }: registerAgentProps) {
+  try {
+    const response = await axios.post('http://localhost:8080/api/agent/register', { symbol: form.symbol, faction: form.faction });
+
+    setApiKey(response.data.token);
+  } catch (error) {
+    console.error('Error fetching data:', error);
+  }
+}

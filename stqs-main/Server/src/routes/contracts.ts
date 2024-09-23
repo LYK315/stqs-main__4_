@@ -1,5 +1,5 @@
 import { Router, Request, Response } from 'express';
-import { ContractList } from '@shared/Types/contract';
+import { ContractList } from '@shared/interfaces/contract';
 
 const router = Router();
 const API_URL = 'https://api.spacetraders.io/v2';

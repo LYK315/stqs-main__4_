@@ -1,10 +1,8 @@
 import axios from "axios";
-import { ShipList } from "@shared/Types/ship";
+import { getShipListProps, moveShipProps, refuelShipProps, extractOreProps, navigateShipProps } from "@/interfaces/ship";
 
-// Get all ships
-export async function getShipList(
-  setShipList: React.Dispatch<React.SetStateAction<ShipList>>
-) {
+// Get all ship data
+export async function getShipList({ setShipList }: getShipListProps) {
   try {
     const response = await axios.get('http://localhost:8080/api/ship/shipList');
     setShipList(response.data);
@@ -13,16 +11,12 @@ export async function getShipList(
   }
 };
 
-// Move Ship (orbit / dock)
-export async function moveShip(
-  shipStat: string,
-  shipName: string,
-  manage: string,
-  setUpdateData: (value: number) => void
-) {
+// Move Ship Orbit / Dock)
+export async function moveShip({ shipStat, shipName, manage, setUpdateData }: moveShipProps) {
   // Error Handle - Ship in transit
   if (shipStat === 'IN_TRANSIT') {
-    alert(`Ship "${shipName}" is in transit. Be patient mate.`)
+    alert(`Ship "${shipName}" is in transit. Be patient mate.`);
+    return;
   };
 
   const apiURLs = {
@@ -44,14 +38,11 @@ export async function moveShip(
 }
 
 // Refuel Ship
-export async function refuelShip(
-  shipStat: string,
-  shipName: string,
-  setUpdateData: (value: number) => void
-) {
+export async function refuelShip({ shipStat, shipName, setUpdateData }: refuelShipProps) {
   // Error Handle - Ship in transit
   if (shipStat === 'IN_TRANSIT') {
-    alert(`Ship "${shipName}" is in transit. Be patient mate.`)
+    alert(`Ship "${shipName}" is in transit. Be patient mate.`);
+    return;
   };
 
   // Call API End Point
@@ -68,19 +59,17 @@ export async function refuelShip(
 }
 
 // Extract Ore
-export async function extractOre(
-  shipStat: string,
-  shipName: string,
-  setUpdateData: (value: number) => void
-) {
+export async function extractOre({ shipStat, shipName, setUpdateData }: extractOreProps) {
   // Error Handle - Ship in transit
   if (shipStat === 'IN_TRANSIT') {
-    alert(`Ship "${shipName}" is in transit. Be patient mate.`)
+    alert(`Ship "${shipName}" is in transit. Be patient mate.`);
+    return;
   };
 
   // Error Handle - Ship not in orbit
   if (shipStat !== 'IN_ORBIT') {
-    alert(`Move ship to orbit before extracting.`)
+    alert(`Move ship to orbit before extracting.`);
+    return;
   };
 
   // Call API End Point
@@ -96,27 +85,24 @@ export async function extractOre(
   }
 }
 
-
 // Navigate Ship to waypoint
-export async function navigateShip(
-  shipStat: string,
-  shipName: string,
-  destSymbol: string | null,
-  setUpdateData: (value: number) => void
-) {
+export async function navigateShip({ shipStat, shipName, destSymbol, setUpdateData }: navigateShipProps) {
   // Error Handle - Ship in transit
   if (shipStat === 'IN_TRANSIT') {
-    alert(`Ship "${shipName}" is in transit. Be patient mate.`)
+    alert(`Ship "${shipName}" is in transit. Be patient mate.`);
+    return;
   };
 
   // Error Handle - Ship not in orbit
   if (shipStat !== 'IN_ORBIT') {
-    alert(`Ship "${shipName}" is not in orbit. Move it to orbit before navigating.`)
+    alert(`Ship "${shipName}" is not in orbit. Move it to orbit before navigating.`);
+    return;
   };
 
   // Error Handle - Empty waypoint
   if (!destSymbol) {
-    alert("Dnt try to visit black hole. Please select a destination...")
+    alert("Dnt try to visit black hole. Please select a destination...");
+    return;
   };
 
   // Call API Endpoint

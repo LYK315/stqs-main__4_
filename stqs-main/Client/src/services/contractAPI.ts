@@ -1,10 +1,8 @@
 import axios from "axios";
-import { ContractList } from "@shared/Types/contract";
+import { getContractListProps } from "@/interfaces/contract";
 
 // Get all contracts
-export async function getContractList(
-  setContractList: React.Dispatch<React.SetStateAction<ContractList>>
-) {
+export async function getContractList({ setContractList }: getContractListProps) {
   try {
     const response = await axios.get(`http://localhost:8080/api/contract/getAll`);
     setContractList(response.data);

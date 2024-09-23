@@ -1,5 +1,5 @@
 import { Router, Request, Response } from 'express';
-import { Agent, NewAgent } from '@shared/Types/agent';
+import { Agent, NewAgent } from '@shared/interfaces/agent';
 
 const router = Router();
 const API_URL = 'https://api.spacetraders.io/v2';

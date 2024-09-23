@@ -1,20 +1,16 @@
 import { useState, useEffect } from "react"
-import { Agent } from "@shared/Types/agent";
+import { Agent } from "@shared/interfaces/agent";
 import formatThousands from "@/utils/formatThousands";
+import { agentDashboardProps } from "@/interfaces/agent";
 import { getAgentData } from "../../services/agentAPI";
 
-interface Props {
-  updateData: number;
-  setSystemSymbol: (value: string | null) => void;
-}
-
-function AgentDashboard({ updateData, setSystemSymbol }: Props) {
+function AgentDashboard({ updateData, setSystemSymbol }: agentDashboardProps) {
   const [agentData, setAgentData] = useState<Agent | null>(null);
 
   // Execute on each "updateData" change
   useEffect(() => {
     // API Call - get agent data
-    getAgentData(setAgentData, setSystemSymbol);
+    getAgentData({ setAgentData, setSystemSymbol });
   }, [updateData]);
 
   return (

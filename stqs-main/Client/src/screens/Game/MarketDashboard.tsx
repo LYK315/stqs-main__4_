@@ -1,19 +1,15 @@
 import { useEffect, useState } from "react";
-import { WaypointList } from "@shared/Types/system";
+import { WaypointList } from "@shared/interfaces/system";
 import { getMarketList } from "@/services/systemsAPI";
+import { marketDashboardProps } from "@/interfaces/systems";
 
-interface Props {
-  closeCommandDashboard: () => void;
-  systemSymbol: string | null;
-}
-
-function MarketDashboard({ closeCommandDashboard, systemSymbol }: Props) {
+function MarketDashboard({ closeCommandDashboard, systemSymbol }: marketDashboardProps) {
   const [marketList, setMarketList] = useState<WaypointList>({ data: [] });
 
   // Execute once on render
   useEffect(() => {
     // API Call - Get all waypoints with market in current system
-    getMarketList(systemSymbol, setMarketList);
+    getMarketList({ systemSymbol, setMarketList });
   }, [])
 
   return (

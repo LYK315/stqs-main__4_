@@ -1,12 +1,7 @@
 import { useState } from 'react';
+import { dropdownProps } from '@/interfaces/components';
 
-interface DropdownProps {
-  optionList: { symbol: string; type: string }[];
-  selected: string | null;
-  setSelected: (value: string) => void;
-}
-
-function Dropdown({ optionList, selected, setSelected }: DropdownProps) {
+function Dropdown({ optionList, selected, setSelected }: dropdownProps) {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [filter, setFilter] = useState<string>('');
 

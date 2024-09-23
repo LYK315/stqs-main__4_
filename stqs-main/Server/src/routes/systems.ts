@@ -1,5 +1,5 @@
 import { Router, Request, Response } from 'express';
-import { WaypointList } from '@shared/Types/system';
+import { WaypointList } from '@shared/interfaces/system';
 
 const router = Router();
 const API_URL = 'https://api.spacetraders.io/v2';

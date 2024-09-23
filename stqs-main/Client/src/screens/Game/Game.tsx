@@ -8,7 +8,7 @@ function Game() {
   // Control which data should be refreshed
   const [updateData, setUpdateData] = useState<number>(Date.now())
 
-  // Store system symbol that will be used in multiple features
+  // Store system symbol that will be used across multiple features
   const [systemSymbol, setSystemSymbol] = useState<string | null>(null)
 
   return (

@@ -10,6 +10,12 @@ We have scaffolded a small project #this repo to get you started. It contains ev
 On completion, return the repository to us, either zipped as an attachment or uploaded to a Git hosting service.
 
 ---
+# Features implemented
+- Agent: Dashboard, Register
+- Ship: Dashboard, Dock, Orbit, Refuel, Extract, Navigate
+- Shipyard: Show Shipyard Waypoints
+- Market: Show  Market Waypoints
+- Contract: Show All Contracts
 # How to run
 > Navigate to client directory, run `npm run dev`
 > Navigate to server directory, run `npm run dev`
@@ -34,6 +40,6 @@ stqs-main
 │   └───src                
 │       └───routes         # Route API Endpoints
 │       └───server.ts      # Main router
-└───Shared                 # File accessible both front back end
-    └───Types              # Define types to ensure integrity across both ends
+└───Shared                 # Files accessible by both front back end
+    └───Interfaces         # Define interfaces to ensure data integrity across both ends
 ```

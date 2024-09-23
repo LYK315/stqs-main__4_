@@ -1,13 +1,8 @@
 import { useNavigate } from "react-router-dom";
+import { btnNavigateProps } from "@/interfaces/components";
 
-interface BtnNavigateProps {
-  route: string;
-  label?: string;
-}
-
-function BtnNavigate({ route, label = "Button" }: BtnNavigateProps) {
+function BtnNavigate({ route, label = "Button" }: btnNavigateProps) {
   const navigate = useNavigate();
-
   return (
     <div
       role="button"

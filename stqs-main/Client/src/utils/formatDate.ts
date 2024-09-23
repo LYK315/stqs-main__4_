@@ -1,3 +1,4 @@
+// Format date from date string
 function formatDateString(dateString: string) {
   const date = new Date(dateString);
 

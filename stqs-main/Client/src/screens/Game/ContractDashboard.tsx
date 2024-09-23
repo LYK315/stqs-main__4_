@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
-import { ContractList, ContractData } from '@shared/Types/contract';
+import { ContractList, ContractData } from '@shared/interfaces/contract';
+import { contractDashboardProps } from "@/interfaces/contract";
 import ContractManage from "./ContractManage";
 import { getContractList } from "../../services/contractAPI";
 
-function ContractDashboard({ closeCommandDashboard }: { closeCommandDashboard: () => void }) {
+function ContractDashboard({ closeCommandDashboard }: contractDashboardProps) {
   const [contractList, setContractList] = useState<ContractList>({ data: [] });
   const [selectContract, setSelectContract] = useState<ContractData | null>(null);
 
@@ -20,7 +21,7 @@ function ContractDashboard({ closeCommandDashboard }: { closeCommandDashboard: (
   // Execute once on render
   useEffect(() => {
     // API Call  - All Waypoint in current system
-    getContractList(setContractList);
+    getContractList({ setContractList });
   }, []);
 
   return (

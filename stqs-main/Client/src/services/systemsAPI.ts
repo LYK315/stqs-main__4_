@@ -1,11 +1,8 @@
 import axios from "axios";
-import { WaypointList } from "@shared/Types/system";
+import { getMarketListProps, getShipyardListProps, getWaypointListProps } from "@/interfaces/systems";
 
 // Get all waypoints with market in current system
-export async function getMarketList(
-  systemSymbol: string | null,
-  setMarketList: React.Dispatch<React.SetStateAction<WaypointList>>
-) {
+export async function getMarketList({ systemSymbol, setMarketList }: getMarketListProps) {
   try {
     const response = await axios.get(`http://localhost:8080/api/systems/marketList`, {
       params: { systemSymbol: systemSymbol }
@@ -17,10 +14,7 @@ export async function getMarketList(
 }
 
 // Get all waypoints with shipyards in current system
-export async function getShipyardList(
-  systemSymbol: string | null,
-  setShipyardList: React.Dispatch<React.SetStateAction<WaypointList>>
-) {
+export async function getShipyardList({ systemSymbol, setShipyardList }: getShipyardListProps) {
   try {
     const response = await axios.get(`http://localhost:8080/api/systems/shipyardList`, {
       params: { systemSymbol: systemSymbol }
@@ -32,10 +26,7 @@ export async function getShipyardList(
 }
 
 // Get all waypoints in current system
-export async function getWaypointList(
-  systemSymbol: string | null,
-  setDropdownList: React.Dispatch<React.SetStateAction<{ symbol: string; type: string }[]>>
-) {
+export async function getWaypointList({ systemSymbol, setDropDownList }: getWaypointListProps) {
   try {
     const response = await axios.get(`http://localhost:8080/api/systems/waypointList`, {
       params: { systemSymbol: systemSymbol }
@@ -45,7 +36,7 @@ export async function getWaypointList(
       symbol: waypoint.symbol,
       type: waypoint.type
     }));
-    setDropdownList(options);
+    setDropDownList(options);
   } catch (error) {
     console.error('Error fetching waypoint list data:', error);
   }
