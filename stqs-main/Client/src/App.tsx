@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import GamePage from "./Game/Game";
-import NewAgentPage from "./NewAgent/NewAgent";
+import GamePage from "../src/screens/Game/Game";
+import NewAgentPage from "./screens/NewAgent/NewAgent";
 
 function App() {
   return (

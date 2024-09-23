@@ -38,7 +38,7 @@ function Dropdown({ optionList, selected, setSelected }: DropdownProps) {
         {selected || 'Select to navigate...'}
       </div>
 
-      {/* Drop down options */}
+      {/* Drop down list */}
       {isOpen && (
         <div className='absolute top-full left-0 right-0 z-20 bg-tertiary border-t-0'>
           {/* Filter Keywords */}

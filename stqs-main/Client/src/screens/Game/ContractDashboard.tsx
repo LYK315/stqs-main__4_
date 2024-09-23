@@ -1,13 +1,9 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
 import { ContractList, ContractData } from '@shared/Types/contract';
-import ContractManage from "./Manage";
+import ContractManage from "./ContractManage";
+import { getContractList } from "../../services/contractAPI";
 
-interface Props {
-  closeCommandDashboard: () => void;
-}
-
-function ContractDashboard({ closeCommandDashboard }: Props) {
+function ContractDashboard({ closeCommandDashboard }: { closeCommandDashboard: () => void }) {
   const [contractList, setContractList] = useState<ContractList>({ data: [] });
   const [selectContract, setSelectContract] = useState<ContractData | null>(null);
 
@@ -16,7 +12,7 @@ function ContractDashboard({ closeCommandDashboard }: Props) {
     setSelectContract(contract);
   }
 
-  // Handle - close manage command box
+  // Handle - Close manage command box
   function handleCloseManage() {
     setSelectContract(null);
   }
@@ -24,15 +20,7 @@ function ContractDashboard({ closeCommandDashboard }: Props) {
   // Execute once on render
   useEffect(() => {
     // API Call  - All Waypoint in current system
-    async function fetchContractList() {
-      try {
-        const response = await axios.get(`http://localhost:8080/api/contract/getAll`);
-        setContractList(response.data);
-      } catch (error) {
-        console.error('Error fetching contract list data:', error);
-      }
-    };
-    fetchContractList();
+    getContractList(setContractList);
   }, []);
 
   return (

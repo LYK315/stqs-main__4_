@@ -1,12 +1,12 @@
 import { useState } from "react";
 import axios from "axios";
-import BtnNavigate from "../components/BtnNavigate"
+import BtnNavigate from "../../components/BtnNavigate"
 
 function NewAgent() {
   const [form, setForm] = useState({ symbol: "", faction: "COSMIC" });
   const [apiKey, setApiKey] = useState<string>()
 
-  // Register New Agent & Get API Key
+  // API Call - Register New Agent & Get API Key
   async function handleCreateAgent() {
     try {
       const response = await axios.post('http://localhost:8080/api/agent/register', { symbol: form.symbol, faction: form.faction });
@@ -24,7 +24,7 @@ function NewAgent() {
           {/* Title */}
           <h1 className="text-xl font-bold">Create New Agent</h1>
 
-          {/* Data - Agent Name | Symbol */}
+          {/* Data - Agent Symbol */}
           <input
             name="symbol"
             placeholder="Enter Agent Name"

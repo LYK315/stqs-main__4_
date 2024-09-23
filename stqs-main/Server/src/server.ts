@@ -4,7 +4,6 @@ import dotenv from 'dotenv';
 import agentRoutes from './routes/agent';
 import shipRoutes from './routes/ships';
 import systemsRoutes from './routes/systems';
-import shipyardRoutes from './routes/shipyard';
 import contractRoutes from './routes/contracts';
 
 dotenv.config();
@@ -21,7 +20,6 @@ app.use('/api/agent', agentRoutes);
 app.use('/api/ship', shipRoutes);
 app.use('/api/systems', systemsRoutes);
 app.use('/api/contract', contractRoutes);
-app.use('/api/shipyard', shipyardRoutes)
 
 
 /*===================== Root API Routes =====================*/

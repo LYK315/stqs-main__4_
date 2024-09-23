@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
-import axios from "axios";
+import ShipManage from "./ShipManage";
 import { ShipList, ShipData } from "@shared/Types/ship";
-import ShipManage from "./Manage";
+import { getShipList } from "@/services/shipAPI";
 
 interface Props {
   updateData: number;
@@ -15,23 +15,15 @@ function ShipsDashboard({ updateData, setUpdateData }: Props) {
   // Execute on each 'updateData' change
   useEffect(() => {
     // API Call - Get all ships data
-    async function fetchShipList() {
-      try {
-        const response = await axios.get('http://localhost:8080/api/ship/shipList');
-        setShipList(response.data);
-      } catch (error) {
-        console.error('Error fetching ships data:', error);
-      }
-    };
-    fetchShipList();
+    getShipList(setShipList);
   }, [updateData]);
 
-  // Handle - open manage ship
+  // Handle - Open manage ship board
   function handleManageOpen(ship: ShipData) {
     setSelectedShip(ship);
   };
 
-  // Handle - close manage ship
+  // Handle - Close manage ship
   function handleManageClose() {
     setSelectedShip(null);
   };
@@ -63,7 +55,7 @@ function ShipsDashboard({ updateData, setUpdateData }: Props) {
               <div className="font-thin">{ship.nav.status}</div>
             </div>
 
-            {/* Button - Manage Ship */}
+            {/* Button - Open Manage Ship Board */}
             <div
               role="button"
               className="basis-2/12 flex items-center bg-tertiary rounded-xl px-3 hover:text-cyan-300"
@@ -80,7 +72,7 @@ function ShipsDashboard({ updateData, setUpdateData }: Props) {
         </div>
       )) : "Loading..."}
 
-      {/* Feature - Manage Ship */}
+      {/* Feature - Manage Ship Board */}
       {selectedShip && (
         <div className="fixed z-10 inset-0 bg-black bg-opacity-50 flex items-center justify-center">
           <div className="bg-dashboard p-4 px-5 rounded-md w-[29rem] h-fit shadow-md shadow-cyan-900 border border-cyan-800">
