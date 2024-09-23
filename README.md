@@ -28,6 +28,7 @@ Folder structure leans towards feature-based (business logic based).
 ```
 stqs-main
 ├───Client
+│   └───.env             # Client environment data 
 │   └───src 
 │       ├───assets       # images, svg...
 │       ├───components   # Reusable components
