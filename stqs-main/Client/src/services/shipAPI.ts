@@ -4,7 +4,7 @@ import { getShipListProps, moveShipProps, refuelShipProps, extractOreProps, navi
 // Get all ship data
 export async function getShipList({ setShipList }: getShipListProps) {
   try {
-    const response = await axios.get('http://localhost:8080/api/ship/shipList');
+    const response = await axios.get(`${import.meta.env.VITE_HOST_URL}/api/ship/shipList`);
     setShipList(response.data);
   } catch (error) {
     console.error('Error fetching ships data:', error);
@@ -20,8 +20,8 @@ export async function moveShip({ shipStat, shipName, manage, setUpdateData }: mo
   };
 
   const apiURLs = {
-    ORBIT: 'http://localhost:8080/api/ship/orbit',
-    DOCK: 'http://localhost:8080/api/ship/dock',
+    ORBIT: `${import.meta.env.VITE_HOST_URL}/api/ship/orbit`,
+    DOCK: `${import.meta.env.VITE_HOST_URL}/api/ship/dock`,
   } as const;
 
   const apiURL = apiURLs[manage as keyof typeof apiURLs];
@@ -45,9 +45,15 @@ export async function refuelShip({ shipStat, shipName, setUpdateData }: refuelSh
     return;
   };
 
+  // Error Handle - Ship not docked
+  if (shipStat !== 'DOCKED') {
+    alert(`Dock your ship before refueling.`);
+    return;
+  };
+
   // Call API End Point
   try {
-    await axios.post('http://localhost:8080/api/ship/refuel', {
+    await axios.post(`${import.meta.env.VITE_HOST_URL}/api/ship/refuel`, {
       shipSymbol: shipName
     });
 
@@ -74,7 +80,7 @@ export async function extractOre({ shipStat, shipName, setUpdateData }: extractO
 
   // Call API End Point
   try {
-    await axios.post('http://localhost:8080/api/ship/extract', {
+    await axios.post(`${import.meta.env.VITE_HOST_URL}/api/ship/extract`, {
       shipSymbol: shipName
     });
 
@@ -107,7 +113,7 @@ export async function navigateShip({ shipStat, shipName, destSymbol, setUpdateDa
 
   // Call API Endpoint
   try {
-    await axios.post('http://localhost:8080/api/ship/navigate', { shipSymbol: shipName, destWaypointSymbol: destSymbol });
+    await axios.post(`${import.meta.env.VITE_HOST_URL}/api/ship/navigate`, { shipSymbol: shipName, destWaypointSymbol: destSymbol });
 
     // Update dashboard / status board
     setUpdateData(Date.now());
@@ -120,7 +126,7 @@ export async function navigateShip({ shipStat, shipName, destSymbol, setUpdateDa
 export async function buyShip({ shipType, waypointSymbol, setUpdateData }: buyShipProps) {
   // Send request to API End Point
   try {
-    await axios.post(`http://localhost:8080/api/ship/buy`, { shipType: shipType, waypointSymbol: waypointSymbol });
+    await axios.post(`${import.meta.env.VITE_HOST_URL}/api/ship/buy`, { shipType: shipType, waypointSymbol: waypointSymbol });
 
     // Update dashboard / status board
     setUpdateData(Date.now());

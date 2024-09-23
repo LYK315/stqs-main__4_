@@ -7,7 +7,7 @@ export interface agentDashboardProps {
 
 export interface getAgentDataProps {
   setAgentData: (value: Agent | null) => void;
-  setSystemSymbol: (value: string | null) => void;
+  setSystemSymbol: (value: string) => void;
 }
 
 export interface registerAgentProps {

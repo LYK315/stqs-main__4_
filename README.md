@@ -13,33 +13,43 @@ On completion, return the repository to us, either zipped as an attachment or up
 # Features implemented
 - Agent: Dashboard, Register
 - Ship: Dashboard, Dock, Orbit, Refuel, Extract, Navigate
-- Shipyard: Show Shipyard Waypoints
-- Market: Show  Market Waypoints
+- Shipyard: Show Shipyard Locations, Buy Ship
+- Market: Show Market Locations
 - Contract: Show All Contracts
+
 # How to run
-> Navigate to client directory, run `npm run dev`
-> Navigate to server directory, run `npm run dev`
+> First, navigate to Server directory, run `npm run dev`
+
+> Then, navigate to Client directory, run `npm run dev`
 
 # Folder Structure
-> Folder structure leans towards feature-based (business logic based).
+Folder structure leans towards feature-based (business logic based).
 
 ```
 stqs-main
 ├───Client
 │   └───src 
-│       ├───assets         # images, svg...
-│       ├───components     # Reusable components
-│       ├───screens        # Screen folders (pages)
-│       │   ├───Game       # Game Screen (Game.tsx is main component)
-│       │   ├───NewAgent   # New Agent Screen (NewAgent.tsx is main component)
-│       ├───services       # API Services 
-│       ├───tests          # Test files
-│       ├───utils          # Reusable functions / logics
+│       ├───assets       # images, svg...
+│       ├───components   # Reusable components
+│       ├───interfaces   # Ensure type integrity between components
+│       ├───screens      # Screen folders (pages)
+│       │   ├───Game     # Game Screen (Game.tsx is main component)
+│       │   ├───NewAgent # New Agent Screen (NewAgent.tsx is main component)
+│       ├───services     # API Services 
+│       ├───tests        # Test files
+│       ├───utils        # Reusable functions / logics
 ├───Server
-│   └───.env               # Server environment data
+│   └───.env             # Server environment data
 │   └───src                
-│       └───routes         # Route API Endpoints
-│       └───server.ts      # Main router
-└───Shared                 # Files accessible by both front back end
-    └───Interfaces         # Define interfaces to ensure data integrity across both ends
+│       └───routes       # Route API Endpoints
+│       └───server.ts    # Main router
+└───Shared               # Files accessible by both front back end
+    └───interfaces       # Ensure data integrity across front back end
 ```
+
+---
+
+# Check out my portfolio !
+- [Github](https://github.com/LYK315)
+
+- [Portfolio](https://portfolio-lyk.netlify.app/)
