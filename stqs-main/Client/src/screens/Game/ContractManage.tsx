@@ -33,27 +33,39 @@ function ContractManage({ contract, closeManageContract, closeCommandDashboard }
       </div>
 
       {/* Data - Contract Details */}
-      <div className="flex flex-col gap-5 px-4">
+      <div className="flex flex-col gap-5 px-4 max-h-[297px] overflow-y-auto">
         {/* Data - Contract Type */}
-        <div className="flex flex-col gap-1">
+        <div className="flex flex-col">
           <span className="font-bold">Type</span>
           <span className="font-thin">{contract.type}</span>
         </div>
 
         {/* Data - Contract Progress */}
-        <div className="flex flex-col gap-1">
+        <div className="flex flex-col">
           <span className="font-bold">Progress</span>
           <span className="font-thin">Fulfilled: {contract.fulfilled.toString()}</span>
         </div>
 
         {/* Data - Contract Deadline */}
-        <div className="flex flex-col gap-1">
+        <div className="flex flex-col">
           <span className="font-bold">Deadline</span>
           <span className="font-thin">{formatDateString(contract.terms.deadline)}</span>
         </div>
 
+        {/* Data - Delivery */}
+        <div className="flex flex-col">
+          <span className="font-bold">Delivery Task</span>
+          {contract.terms.deliver.map((delivery) => (
+            <div className="flex flex-col">
+              <span className="font-thin">Trade Symbol: {delivery.tradeSymbol}</span>
+              <span className="font-thin">Units Requireed: {delivery.unitsRequired}</span>
+              <span className="font-thin">Units Fulfilled: {delivery.unitsFulfilled}</span>
+            </div>
+          ))}
+        </div>
+
         {/* Data - Contract Payment */}
-        <div className="flex flex-col gap-1">
+        <div className="flex flex-col">
           <span className="font-bold">Payment</span>
           <span className="font-thin">On Accept: $ {formatThousands(contract.terms.payment.onAccepted)}</span>
           <span className="font-thin">On Fulfill: $ {formatThousands(contract.terms.payment.onFulfilled)}</span>
