@@ -30,7 +30,7 @@ function Dropdown({ optionList, selected, setSelected }: dropdownProps) {
         onClick={toggleDropdown}
         className={`cursor-pointer bg-tertiary hover:bg-purple-950 rounded-md border border-cyan-800 text-left px-4 py-1 ${selected ? "text-white" : "text-gray-500"} text-sm`}
       >
-        {selected || 'Select to navigate...'}
+        {selected || 'Select orbit to navigate...'}
       </div>
 
       {/* Drop down list */}

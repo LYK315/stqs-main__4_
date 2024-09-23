@@ -2,7 +2,7 @@ import { Agent } from "@shared/interfaces/agent";
 
 export interface agentDashboardProps {
   updateData: number;
-  setSystemSymbol: (value: string | null) => void;
+  setSystemSymbol: (value: string) => void;
 };
 
 export interface getAgentDataProps {

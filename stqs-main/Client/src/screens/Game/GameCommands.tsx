@@ -4,7 +4,7 @@ import ContractDashboard from "./ContractDashboard";
 import MarketDashboard from "./MarketDashboard";
 import ShipyardDashboard from "./ShipyardDashboard";
 
-function Commands(systemSymbol: commandsProps) {
+function Commands({ systemSymbol, setUpdateData }: commandsProps) {
   const [manageCommand, setManageCommand] = useState<string | null>(null)
 
   // Handle - Open selected command's dashboard
@@ -64,8 +64,8 @@ function Commands(systemSymbol: commandsProps) {
             {(() => { // Open different command dashboard
               const commandComponents = {
                 CONTRACT: <ContractDashboard closeCommandDashboard={handleCloseCommand} />,
-                MARKET: <MarketDashboard closeCommandDashboard={handleCloseCommand} systemSymbol={systemSymbol.systemSymbol} />,
-                SHIPYARD: <ShipyardDashboard closeCommandDashboard={handleCloseCommand} systemSymbol={systemSymbol.systemSymbol} />,
+                MARKET: <MarketDashboard closeCommandDashboard={handleCloseCommand} systemSymbol={systemSymbol} />,
+                SHIPYARD: <ShipyardDashboard closeCommandDashboard={handleCloseCommand} systemSymbol={systemSymbol} setUpdateData={setUpdateData} />,
               };
               return commandComponents[manageCommand as keyof typeof commandComponents] || null;
             })()}

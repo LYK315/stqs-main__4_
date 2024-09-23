@@ -9,7 +9,7 @@ function Game() {
   const [updateData, setUpdateData] = useState<number>(Date.now())
 
   // Store system symbol that will be used across multiple features
-  const [systemSymbol, setSystemSymbol] = useState<string | null>(null)
+  const [systemSymbol, setSystemSymbol] = useState<string>()
 
   return (
     <div>
@@ -35,7 +35,7 @@ function Game() {
 
         {/* Feature - Game Commmands */}
         <div className="flex mt-12">
-          <GameCommands systemSymbol={systemSymbol} />
+          <GameCommands systemSymbol={systemSymbol} setUpdateData={setUpdateData} />
         </div>
 
         {/* Button - Nvigate to Create New Agent */}

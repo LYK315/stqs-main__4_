@@ -41,3 +41,9 @@ export interface navigateShipProps {
   destSymbol: string | null,
   setUpdateData: (value: number) => void
 }
+
+export interface buyShipProps {
+  shipType: string,
+  waypointSymbol: string,
+  setUpdateData: (value: number) => void
+}

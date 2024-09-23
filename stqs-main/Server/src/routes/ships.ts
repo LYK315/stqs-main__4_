@@ -1,5 +1,5 @@
 import { Router, Request, Response } from 'express';
-import { ShipList, MoveShipData, ExtractOreData, RefuelData } from '@shared/interfaces/ship';
+import { ShipList, MoveShipData, ExtractOreData, RefuelData, ShipData } from '@shared/interfaces/ship';
 
 const router = Router();
 const API_URL = 'https://api.spacetraders.io/v2/my/ships';
@@ -115,6 +115,31 @@ async function navigateShip(shipSymbol: string, destSymbol: string): Promise<Mov
   }
 };
 
+async function buyShip(shipType: string, waypointSymbol: string): Promise<ShipData> {
+  const options = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${process.env.VITE_ST_API_KEY}`,
+    },
+    body: JSON.stringify({
+      shipType: shipType,
+      waypointSymbol: waypointSymbol,
+    }),
+  };
+
+  try {
+    const response = await fetch(`${API_URL}`, options);
+    if (!response.ok) {
+      throw new Error(`Failed to fetch buy ship data. Status: ${response.status}`);
+    }
+    return await response.json() as ShipData;
+  } catch (error) {
+    console.error('Error fetching buy ship data:', error);
+    throw error;
+  }
+}
+
 
 
 /*===================== Services =====================*/
@@ -202,6 +227,21 @@ router.post('/navigate', async (req: Request, res: Response) => {
     const navigateData = await navigateShip(shipSymbol, destWaypointSymbol);
     res.json({ navigateData });
 
+  } catch (error) {
+    res.status(500).json({ error: error });
+  }
+});
+
+router.post('/buy', async (req: Request, res: Response) => {
+  const { shipType, waypointSymbol } = req.body
+
+  if (!shipType || !waypointSymbol) {
+    return res.status(400).json({ error: 'Ship type & Waypoint Symbol (buy ship) is required' });
+  }
+
+  try {
+    const shipData = await buyShip(shipType, waypointSymbol);
+    res.json(shipData);
   } catch (error) {
     res.status(500).json({ error: error });
   }

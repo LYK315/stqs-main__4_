@@ -46,8 +46,8 @@ function MarketDashboard({ closeCommandDashboard, systemSymbol }: marketDashboar
 
         {/* Table - Body row */}
         {marketList.data && marketList.data.length > 0 ? (marketList.data.map((waypoint, index) => (
-          <div className="flex flex-col">
-            <div className="flex flex-row text-sm py-1 px-3" key={waypoint.symbol}>
+          <div className="flex flex-col" key={waypoint.symbol}>
+            <div className="flex flex-row text-sm py-1 px-3">
               <span className="font-thin basis-4/12">{waypoint.symbol}</span>
               <span className="font-thin basis-4/12">({waypoint.x}, {waypoint.y})</span>
               <span className="font-thin basis-4/12">{waypoint.type}</span>

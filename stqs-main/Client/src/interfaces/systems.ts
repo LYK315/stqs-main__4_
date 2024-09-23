@@ -1,8 +1,10 @@
 import { WaypointList } from "@shared/interfaces/system";
+import { ShipyardData } from "@shared/interfaces/shipyard";
 
 /*===================== Main =====================*/
 export interface commandsProps {
-  systemSymbol: string | null;
+  systemSymbol?: string;
+  setUpdateData: (value: number) => void
 }
 
 export interface getWaypointListProps {
@@ -14,10 +16,11 @@ export interface getWaypointListProps {
 /*===================== Market =====================*/
 export interface marketDashboardProps {
   closeCommandDashboard: () => void;
-  systemSymbol: string | null;
+  systemSymbol?: string;
 }
+
 export interface getMarketListProps {
-  systemSymbol: string | null;
+  systemSymbol?: string;
   setMarketList: (value: WaypointList) => void;
 }
 
@@ -25,10 +28,23 @@ export interface getMarketListProps {
 /*===================== Shipyard =====================*/
 export interface shipyardDashboardProps {
   closeCommandDashboard: () => void;
-  systemSymbol: string | null;
+  systemSymbol?: string;
+  setUpdateData: (value: number) => void
 }
 
 export interface getShipyardListProps {
-  systemSymbol: string | null;
+  systemSymbol?: string
   setShipyardList: (value: WaypointList) => void;
+}
+
+export interface getShipyardProps {
+  systemSymbol?: string,
+  waypointSymbol: string | null,
+  setShipyardData: (value: ShipyardData) => void,
+}
+
+export interface shipyardManageProps {
+  shipyard: ShipyardData;
+  closeManageShipyard: () => void;
+  setUpdateData: (value: number) => void
 }

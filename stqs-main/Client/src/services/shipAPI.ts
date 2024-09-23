@@ -1,5 +1,5 @@
 import axios from "axios";
-import { getShipListProps, moveShipProps, refuelShipProps, extractOreProps, navigateShipProps } from "@/interfaces/ship";
+import { getShipListProps, moveShipProps, refuelShipProps, extractOreProps, navigateShipProps, buyShipProps } from "@/interfaces/ship";
 
 // Get all ship data
 export async function getShipList({ setShipList }: getShipListProps) {
@@ -111,6 +111,19 @@ export async function navigateShip({ shipStat, shipName, destSymbol, setUpdateDa
 
     // Update dashboard / status board
     setUpdateData(Date.now());
+  } catch (error) {
+    console.error('Error fetching data:', error);
+  }
+}
+
+export async function buyShip({ shipType, waypointSymbol, setUpdateData }: buyShipProps) {
+  // Send request to API End Point
+  try {
+    await axios.post(`http://localhost:8080/api/ship/buy`, { shipType: shipType, waypointSymbol: waypointSymbol });
+
+    // Update dashboard / status board
+    setUpdateData(Date.now());
+    alert('Check Ships Dashboard for your new ship.')
   } catch (error) {
     console.error('Error fetching data:', error);
   }

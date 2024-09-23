@@ -1,30 +1,7 @@
 import axios from "axios";
-import { getMarketListProps, getShipyardListProps, getWaypointListProps } from "@/interfaces/systems";
+import { getMarketListProps, getShipyardListProps, getWaypointListProps, getShipyardProps } from "@/interfaces/systems";
 
-// Get all waypoints with market in current system
-export async function getMarketList({ systemSymbol, setMarketList }: getMarketListProps) {
-  try {
-    const response = await axios.get(`http://localhost:8080/api/systems/marketList`, {
-      params: { systemSymbol: systemSymbol }
-    });
-    setMarketList(response.data);
-  } catch (error) {
-    console.error('Error fetching market waypoint list data:', error);
-  }
-}
-
-// Get all waypoints with shipyards in current system
-export async function getShipyardList({ systemSymbol, setShipyardList }: getShipyardListProps) {
-  try {
-    const response = await axios.get(`http://localhost:8080/api/systems/shipyardList`, {
-      params: { systemSymbol: systemSymbol }
-    });
-    setShipyardList(response.data);
-  } catch (error) {
-    console.error('Error fetching shipyard waypoint list data:', error);
-  }
-}
-
+/*===================== Main =====================*/
 // Get all waypoints in current system
 export async function getWaypointList({ systemSymbol, setDropDownList }: getWaypointListProps) {
   try {
@@ -41,3 +18,42 @@ export async function getWaypointList({ systemSymbol, setDropDownList }: getWayp
     console.error('Error fetching waypoint list data:', error);
   }
 };
+
+
+/*===================== Market =====================*/
+// Get all waypoints with market in current system
+export async function getMarketList({ systemSymbol, setMarketList }: getMarketListProps) {
+  try {
+    const response = await axios.get(`http://localhost:8080/api/systems/marketList`, {
+      params: { systemSymbol: systemSymbol }
+    });
+    setMarketList(response.data);
+  } catch (error) {
+    console.error('Error fetching market waypoint list data:', error);
+  }
+}
+
+
+/*===================== Shipyard =====================*/
+// Get all waypoints with shipyards in current system
+export async function getShipyardList({ systemSymbol, setShipyardList }: getShipyardListProps) {
+  try {
+    const response = await axios.get(`http://localhost:8080/api/systems/shipyardList`, {
+      params: { systemSymbol: systemSymbol }
+    });
+    setShipyardList(response.data);
+  } catch (error) {
+    console.error('Error fetching shipyard waypoint list data:', error);
+  }
+}
+
+export async function getShipyard({ systemSymbol, waypointSymbol, setShipyardData }: getShipyardProps) {
+  try {
+    const response = await axios.get(`http://localhost:8080/api/systems/shipyard`, {
+      params: { systemSymbol: systemSymbol, waypointSymbol: waypointSymbol }
+    });
+    setShipyardData(response.data);
+  } catch (error) {
+    console.error('Error fetching shipyard waypoint list data:', error);
+  }
+}
